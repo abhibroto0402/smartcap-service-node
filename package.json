@@ -14,7 +14,13 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/abhibroto0402/smartcap-server#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "ejs": "^2.5.2",
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
