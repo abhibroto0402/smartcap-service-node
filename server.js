@@ -5,6 +5,10 @@ var ObjectId = require('mongodb').ObjectID;
 var url = "mongodb://" + process.env.IP + "/patient";
 var app = express();
 var port = process.env.PORT;
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 
 
@@ -32,15 +36,16 @@ MongoClient.connect(url, function(err, db) {
 });
 
 app.get('/', (req, res) => {
+    console.log("Basic Get");
     res.sendFile(__dirname + '/index.html')
 });
 
-app.post('/patient', function(req, res){
-    console.log("I am listening son");
+app.post('/patient', function(req, res) {
+    console.log(req.body);
 })
 
 app.get('/patient/:name', function(req, res) {
-
+    console.log("Parameterized Get request");
     if (req.params.name == 1) {
         res.send({
             id: req.params.id,

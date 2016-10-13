@@ -1,0 +1,12 @@
+{
+    "_id": ObjectId("57fc5d9c0fc462e9df01cb21"),
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "999-999-9999",
+    "smartcap": [{
+        "smartcap_id": "7777",
+        "drug_id": "00001",
+        "time": ["noon", "night"],
+        "meal": "After"
+    }]
+}
