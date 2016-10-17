@@ -6,6 +6,7 @@ var url = "mongodb://" + process.env.IP + "/patient";
 var app = express();
 var port = process.env.PORT;
 var bodyParser = require('body-parser');
+var reqBody;
 app.use(bodyParser.urlencoded({
     extended: true
 }))
@@ -41,7 +42,9 @@ app.get('/', (req, res) => {
 });
 
 app.post('/patient', function(req, res) {
-    console.log(req.body);
+    reqBody = req.body;
+    console.log(reqBody);
+    res.send(reqBody);
 })
 
 app.get('/patient/:name', function(req, res) {

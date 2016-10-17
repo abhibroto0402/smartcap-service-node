@@ -3,25 +3,98 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>MY APP</title>
+    <title>XYZ Pharmacy</title>
 </head>
-
+<script>
+    var counter = 0;
+    //Funciton to check if the field is left empty
+    function checkTextField(field) {
+        if (field.value == '') {
+            alert(field.name + " field is empty");
+        }
+    }
+    // Function to add more details for drung and smart cap
+    function addElements(checkboxElem) {
+        if (checkboxElem.checked) {
+            //alert("workging!");
+            createSmartCapFields();
+        }
+    }
+    
+    function createSmartCapFields(){
+        counter++;
+        var parent = document.getElementById('files');
+         var newElement = document.createElement('p');
+         newElement.setAttribute('id', counter);
+         var html =  "SmartCap-ID: <input type=\"text\" placeholder=\"smartcap#\" name=\"smartcap["+ counter +"]\"> <br> ";
+         html= html + "Drug_ID: <input type=\"text\" placeholder=\"Drug-ID\" name=\"smartcap["+counter+"]\" id=\"drug_id\"><br> ";
+         html= html + "Daily Dosage: <select name=\"smartcap["+counter+"]\" id=\"Drug_ID\"><option value=\"1X\">1X</option><option value=\"2X\">2X</option><option value=\"3X\">3X</option><option value=\"4X\">4X</option></select><br>";
+         html = html + "Meal:<input type=\"radio\" name=\"smartcap["+counter+"]\" id=\"Meal\" value=\"Before\"> Before<input type=\"radio\" name=\"smartcap["+counter+"]\" id=\"Meal\" value=\"After\"> After <br><br><input type=\"checkbox\" name=\"add\" onchange=\"addElements(this)\">Add Another<br>";
+         newElement.innerHTML =html;
+         parent.appendChild(newElement);
+        
+    }
+    
+</script>
 <body>
 
-    <form action="/patient" method="POST">
-        Full Name: <input type="text" placeholder="name" name="name"><br> Email: <input type="email" placeholder="email" name="email"><br> Phone: <input type="text" placeholder="phone#" name="phone"><br> 
-        SmartCap-ID: <input type="text" placeholder="smartcap#"name="smartcap"> 
-        Drug_ID: <input type="text" placeholder="Drug-ID" name="drug_id"> 
-        Daily Dosage: <select name="Dosage">
-            <option value="1X">1X</option>
-            <option value="2X">2X</option>
-            <option value="3X">3X</option>
-            <option value="4X">4X</option>
-        </select>
-        <br><br> Meal:
-        <input type="radio" name="Meal" value="Before"> Before
-        <input type="radio" name="Meal" value="After"> After<br>
-        <button type="submit">Submit</button>
+<style>
+input[type=text], select {
+    margin: 8px 0;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+input[type=email], select {
+    margin: 8px 0;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+button[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+
+<form action="/patient" method="POST">
+    Full Name: <input type="text" placeholder="name" name="name" onblur="checkTextField(this)"><br>
+    Email: <input type="email" placeholder="email" name="email" onblur="checkTextField(this)"><br> 
+    Phone: <input type="text" placeholder="phone#" name="phone" onblur="checkTextField(this)"><br>
+    <div id="files">
+        <p>
+            SmartCap-ID: <input type="text" placeholder="smartcap#" name="smartcap[0]" onblur="checkTextField(this)"> <br> 
+            Drug_ID: <input type="text" placeholder="Drug-ID" name="smartcap[0]" id="drug_id" onblur="checkTextField(this)"><br> 
+            Daily Dosage: <select name="smartcap[0]" id="Drug_ID">
+                <option value="1X">1X</option>
+                <option value="2X">2X</option>
+                <option value="3X">3X</option>
+                <option value="4X">4X</option>
+            </select>
+            <br> Meal:
+            <input type="radio" name="smartcap[0]" id="Meal" value="Before"> Before
+            <input type="radio" name="smartcap[0]" id="Meal" value="After"> After <br>
+            <br>
+            <input type="checkbox" name="add" onchange="addElements(this)">Add Another
+            <br>
+        </p>
+    </div>
+    <button type="submit">Submit</button>
+    
     </form>
 </body>
 
