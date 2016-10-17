@@ -8,9 +8,19 @@ var port = process.env.PORT;
 var bodyParser = require('body-parser');
 var reqBody;
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }))
+var jsonParser = bodyParser.json()
 
+
+function convertJSONForDB(reqBody){
+    
+    var b = JSON.stringify(reqBody).replace(/'/g, '"');
+    //console.log(b);
+    console.log(JSON.parse(b).smartcap0);
+    
+    
+}
 
 
 var findPatient = function(db, callback) {
@@ -41,28 +51,17 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 });
 
-app.post('/patient', function(req, res) {
+app.post('/patient',  function(req, res) {
     reqBody = req.body;
-    console.log(reqBody);
-    res.send(reqBody);
+    res.sendStatus(200);
+    convertJSONForDB(reqBody);
+    
 })
 
 app.get('/patient/:name', function(req, res) {
     console.log("Parameterized Get request");
     if (req.params.name == 1) {
-        res.send({
-            id: req.params.id,
-
-            "name": "John Doe",
-            "email": "john.doe@example.com",
-            "phone": "999-999-9999",
-            "smartcap": [{
-                "smartcap_id": "7777",
-                "drug_id": "00001",
-                "time": ["noon", "night"],
-                "meal": "After"
-            }]
-        });
+       res.send();
     }
     else {
         res.send("error");

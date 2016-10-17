@@ -24,12 +24,12 @@
     function createSmartCapFields(){
         counter++;
         var parent = document.getElementById('files');
-         var newElement = document.createElement('p');
+         var newElement = document.createElement('fieldset');
          newElement.setAttribute('id', counter);
-         var html =  "SmartCap-ID: <input type=\"text\" placeholder=\"smartcap#\" name=\"smartcap["+ counter +"]\"> <br> ";
-         html= html + "Drug_ID: <input type=\"text\" placeholder=\"Drug-ID\" name=\"smartcap["+counter+"]\" id=\"drug_id\"><br> ";
-         html= html + "Daily Dosage: <select name=\"smartcap["+counter+"]\" id=\"Drug_ID\"><option value=\"1X\">1X</option><option value=\"2X\">2X</option><option value=\"3X\">3X</option><option value=\"4X\">4X</option></select><br>";
-         html = html + "Meal:<input type=\"radio\" name=\"smartcap["+counter+"]\" id=\"Meal\" value=\"Before\"> Before<input type=\"radio\" name=\"smartcap["+counter+"]\" id=\"Meal\" value=\"After\"> After <br><br><input type=\"checkbox\" name=\"add\" onchange=\"addElements(this)\">Add Another<br>";
+         var html =  "SmartCap-ID: <input type=\"text\" placeholder=\"smartcap#\" name=\"smartcap"+ counter +"\"> <br> ";
+         html= html + "Drug_ID: <input type=\"text\" placeholder=\"Drug-ID\" name=\"smartcap"+counter+"\" id=\"drug_id\"><br> ";
+         html= html + "Daily Dosage: <select name=\"smartcap"+counter+"\" id=\"Drug_ID\"><option value=\"1X\">1X</option><option value=\"2X\">2X</option><option value=\"3X\">3X</option><option value=\"4X\">4X</option></select><br>";
+         html = html + "Meal:<input type=\"radio\" name=\"smartcap"+counter+"\" id=\"Meal\" value=\"Before\"> Before<input type=\"radio\" name=\"smartcap"+counter+"\" id=\"Meal\" value=\"After\" checked =\"checked\"> After <br><br><input type=\"checkbox\" name=\"add\" onchange=\"addElements(this)\">Add Another<br>";
          newElement.innerHTML =html;
          parent.appendChild(newElement);
         
@@ -76,22 +76,22 @@ div {
     Email: <input type="email" placeholder="email" name="email" onblur="checkTextField(this)"><br> 
     Phone: <input type="text" placeholder="phone#" name="phone" onblur="checkTextField(this)"><br>
     <div id="files">
-        <p>
-            SmartCap-ID: <input type="text" placeholder="smartcap#" name="smartcap[0]" onblur="checkTextField(this)"> <br> 
-            Drug_ID: <input type="text" placeholder="Drug-ID" name="smartcap[0]" id="drug_id" onblur="checkTextField(this)"><br> 
-            Daily Dosage: <select name="smartcap[0]" id="Drug_ID">
+        <fieldset id="0">
+            SmartCap-ID: <input type="text" placeholder="smartcap#" name="smartcap0" onblur="checkTextField(this)"> <br> 
+            Drug_ID: <input type="text" placeholder="Drug-ID" name="smartcap0" id="drug_id" onblur="checkTextField(this)"><br> 
+            Daily Dosage: <select name="smartcap0" id="Drug_ID">
                 <option value="1X">1X</option>
                 <option value="2X">2X</option>
                 <option value="3X">3X</option>
                 <option value="4X">4X</option>
             </select>
             <br> Meal:
-            <input type="radio" name="smartcap[0]" id="Meal" value="Before"> Before
-            <input type="radio" name="smartcap[0]" id="Meal" value="After"> After <br>
+            <input type="radio" name="smartcap0" id="Meal" value="Before"> Before
+            <input type="radio" name="smartcap0" id="Meal" value="After" checked ="checked"> After <br>
             <br>
             <input type="checkbox" name="add" onchange="addElements(this)">Add Another
             <br>
-        </p>
+        </fieldset>
     </div>
     <button type="submit">Submit</button>
     
