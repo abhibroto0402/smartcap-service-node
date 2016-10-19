@@ -7,66 +7,57 @@ var app = express();
 var port = process.env.PORT;
 var bodyParser = require('body-parser');
 var reqBody;
+var patient_phone;
+var res_doc;
 app.use(bodyParser.urlencoded({
     extended: false
 }))
-var jsonParser = bodyParser.json()
 
-
-function convertJSONForDB(reqBody){
-    
+function convertJSONForDB(reqBody) {
     var b = JSON.stringify(reqBody).replace(/'/g, '"');
-    //console.log(b);
-    console.log(JSON.parse(b).smartcap0);
-    
-    
+    return JSON.parse(b);
 }
 
+function insertData(data) {
+    MongoClient.connect(url, function(err, db, callback) {
+        assert.equal(null, err);
+        db.collection('patient').insertOne(data);
+        db.close();
+
+    });
+}
 
 var findPatient = function(db, callback) {
-    var cursor = db.collection('patient').find({
-        "name": "John Doe"
-    });
-    cursor.each(function(err, doc) {
+    patient_phone = JSON.parse(patient_phone);
+    db.collection('patient').find(patient_phone).toArray(function(err, results) {
         assert.equal(err, null);
-        if (doc != null) {
-            console.dir(doc);
-        }
-        else {
-            callback();
-        }
-    });
+        console.log(results);
+        res_doc= results;
+    })
 };
-
-
-MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    findPatient(db, function() {
-        db.close();
-    });
-});
 
 app.get('/', (req, res) => {
     console.log("Basic Get");
     res.sendFile(__dirname + '/index.html')
 });
 
-app.post('/patient',  function(req, res) {
+app.post('/patient', function(req, res) {
     reqBody = req.body;
     res.sendStatus(200);
-    convertJSONForDB(reqBody);
-    
+    insertData(convertJSONForDB(reqBody));
 })
 
-app.get('/patient/:name', function(req, res) {
+app.get('/patient/:phone', function(req, res) {
     console.log("Parameterized Get request");
-    if (req.params.name == 1) {
-       res.send();
-    }
-    else {
-        res.send("error");
-    }
-
+    patient_phone = "{\"phone\":\"" + req.params.phone + "\"}";
+    MongoClient.connect(url, function(err, db) {
+        assert.equal(null, err);
+        findPatient(db, function() {
+            db.close();
+        });
+    });
+    res.send(res_doc);
+    res_doc="";
 });
 
 app.listen(port, process.env.IP);
