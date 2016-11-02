@@ -29,7 +29,9 @@
          var html =  "SmartCap-ID: <input type=\"text\" placeholder=\"smartcap#\" name=\"smartcap"+ counter +"\"> <br> ";
          html= html + "Drug_ID: <input type=\"text\" placeholder=\"Drug-ID\" name=\"smartcap"+counter+"\" id=\"drug_id\"><br> ";
          html= html + "Daily Dosage: <select name=\"smartcap"+counter+"\" id=\"Drug_ID\"><option value=\"1X\">1X</option><option value=\"2X\">2X</option><option value=\"3X\">3X</option><option value=\"4X\">4X</option></select><br>";
-         html = html + "Meal:<input type=\"radio\" name=\"smartcap"+counter+"\" id=\"Meal\" value=\"Before\"> Before<input type=\"radio\" name=\"smartcap"+counter+"\" id=\"Meal\" value=\"After\" checked =\"checked\"> After <br><br><input type=\"checkbox\" name=\"add\" onchange=\"addElements(this)\">Add Another<br>";
+         html = html + "Meal:<input type=\"radio\" name=\"smartcap"+counter+"\" id=\"Meal\" value=\"Before\"> Before<input type=\"radio\" name=\"smartcap"+counter+"\" id=\"Meal\" value=\"After\" checked =\"checked\"> After <br><br>";
+         html= html + "Expiry Date:<input type=\"date\" name=\"smartcap"+counter+ "\"id=\"expDate\"><br>"
+         html= html + "<br><input type=\"checkbox\" name=\"add\" onchange=\"addElements(this)\">Add Another<br>"
          newElement.innerHTML =html;
          parent.appendChild(newElement);
         
@@ -88,6 +90,8 @@ div {
             <br> Meal:
             <input type="radio" name="smartcap0" id="Meal" value="Before"> Before
             <input type="radio" name="smartcap0" id="Meal" value="After" checked ="checked"> After <br>
+            <br>
+            Expiry Date:<input type="date" name="smartcap0" id="expDate"><br>
             <br>
             <input type="checkbox" name="add" onchange="addElements(this)">Add Another
             <br>
