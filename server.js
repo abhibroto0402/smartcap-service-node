@@ -12,6 +12,8 @@ var patient_email;
 var email_pswd;
 var res_doc;
 var user_doc;
+
+
 app.use(bodyParser.urlencoded({
     extended: false
 }))
@@ -19,7 +21,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
-}))// support json encoded bodies
+}))
 
 function convertJSONForDB(reqBody) {
     var b = JSON.stringify(reqBody).replace(/'/g, '"');
@@ -94,10 +96,13 @@ app.get('/patient/:email', function(req, res) {
 
 //App Related functions 
 app.post('/user', function(req, res) {
-    var reqBody_user = req.body;
+    var patient_db = require('./model/update_patient_db_utils');
+    var update_pat_cntrl = require("./controller/update_patient");
+    update_pat_cntrl.newRecord(convertJSONForDB(req.body), res, patient_db);
+    /*var reqBody_user = req.body;
     res.send(reqBody_user);
     res.status(200);
-    insertData(user_url, 'users', convertJSONForDB(reqBody_user));
+    insertData(user_url, 'users', convertJSONForDB(reqBody_user));*/
 });
 
 app.get('/user/:email/:password', function(req, res) {
@@ -124,6 +129,12 @@ app.get('/user/:email/:password', function(req, res) {
     
 });
 
+
+// Adding prescription schedule from the Mobile APP
+app.post('/patient/app/:email', function(req, res) {
+    var patient_db = require('./model/update_patient_db_utils');
+    update_pat_cntrl.a(req, res, patient_db);
+});
 
 app.listen(port, process.env.IP);
 console.log('Listening on port...' + port, process.env.IP);
