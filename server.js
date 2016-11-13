@@ -30,14 +30,12 @@ app.post('/patient', function(req, res) {
     pat_cntrl.newPatRecord(convertJSONForDB(req.body), res, patient_db);
 });
 
-
+//Mobile App Related Endpoints
 
 app.get('/patient/:email', function(req, res) {
     pat_cntrl.findPatRecord(req,res,patient_db);
 });
 
-
-//App Related functions 
 app.post('/user', function(req, res) {
     usr_cntrl.newUserRecord(convertJSONForDB(req.body), res, user_db);
 });
@@ -48,9 +46,9 @@ app.get('/user/:email/:password', function(req, res) {
     
 });
 
-
 // Adding prescription schedule from the Mobile APP
-app.post('/patient/app/:email', function(req, res) {
+app.post('/patient/appSubmit', function(req, res) {
+    pat_cntrl.newAppPatRecord(req, res, patient_db);
     
 });
 

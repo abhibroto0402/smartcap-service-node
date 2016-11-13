@@ -8,9 +8,7 @@ var newPatRecord = function newPatRecord(jsonData, res, patient_db) {
     }
     jsonData.number_of_drugs =drug_counter;
     drug_counter = 0;
-    patient_db.uploadPatDb(jsonData);
-    res.send("Data Inserted");
-    res.status(200);
+    patient_db.uploadPatDb(jsonData, res);
 
 };
 
@@ -20,5 +18,10 @@ var findPatRecord = function findPatRecord(req, res, patient_db){
      patient_db.findPatDb(patient_email,res);
 };
 
+var newAppPatRecord = function newAppPatRecord(req, res, patient_db){
+    patient_db.uploadPatDb(req.body, res);
+};
+
+module.exports.newAppPatRecord = newAppPatRecord;
 module.exports.findPatRecord= findPatRecord;
 module.exports.newPatRecord = newPatRecord;

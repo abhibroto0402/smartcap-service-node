@@ -1,5 +1,6 @@
 var usr_url = "mongodb://" + process.env.IP + "/users";
 var MongoClient = require('mongodb').MongoClient;
+var user_name;
 var uploadUsersDb = function uploadUsersDb(jsonData) {
     MongoClient.connect(usr_url, function(err, db) {
         if (err) {
@@ -32,12 +33,36 @@ var findUserDb = function findUserDb(email_pswd_json, res) {
                 }
                 else {
                     res.status(200);
-                    res.send(results);
+                    res.send(results[0]);
                 }
             });
         }
     });
-    return res;
 };
+
+var getUserName= function getUserName(email){
+    MongoClient.connect(usr_url, function(err, db) {
+        if (err) {
+            console.log('Unable to connect to the DB server. Error:', err);
+        }
+        else {
+            console.log('Connection established to', usr_url);
+            var collection = db.collection('users');
+            collection.find(email).toArray(function(err, results) {
+                if (err) {
+                    console.log("1. Error Encountered finding User");
+                }
+                else if (typeof results[0] == 'undefined') {
+                    console.log("2. Error Encountered finding User");
+                }
+                else {
+                   user_name = results[0].user_name;
+                }
+            });
+        }
+    });
+    
+};
+
 module.exports.uploadUsersDb = uploadUsersDb;
 module.exports.findUserDb = findUserDb;
