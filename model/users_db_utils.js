@@ -29,9 +29,11 @@ var findUserDb = function findUserDb(email_pswd_json, res) {
                     res = "";
                 }
                 else if (typeof results[0] == 'undefined') {
+                    console.log("user not found");
                     res.sendStatus(401);
                 }
                 else {
+                    console.log("User found");
                     res.status(200);
                     res.send(results[0]);
                 }

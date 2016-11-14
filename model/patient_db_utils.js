@@ -13,7 +13,6 @@ var uploadPatDb = function uploadPatDb(jsonData, res) {
             collection.insertOne(jsonData);
             res.send("Data Insertion Successful")
             res.status(200);
-
         }
     });
 
@@ -33,7 +32,9 @@ var findPatDb = function findPatDb(email, res) {
                     res = "";
                 }
                 else if (typeof results[0] == 'undefined') {
-                    res.sendStatus(401);
+                    res.status(200);
+                    res.send("Record Not Found. Please add prescription");
+
                 }
                 else {
                     res.status(200);
@@ -46,34 +47,68 @@ var findPatDb = function findPatDb(email, res) {
 
 };
 
-function getNumberOfPrescription(email){
+
+var uploadAppPatDb = function uploadAppPatDb(jsonData, res, email) {
+
     MongoClient.connect(pat_url, function(err, db) {
         if (err) {
             console.log('Unable to connect to the DB server. Error:', err);
         }
         else {
-            console.log('Connection established to', pat_url);
+            console.log('Connection established to update', pat_url);
             var collection = db.collection('patient');
+            var num;
             collection.find(email).toArray(function(err, results) {
                 if (err) {
                     console.log("Error Encountered finding Patient Records");
-                    return "";
                 }
                 else if (typeof results[0] == 'undefined') {
-                    return "";
+                    console.log("Record Not found");
+                    num = 0;
                 }
                 else {
-                    return results[0].number_of_drugs;
+                    console.log("Found Record");
+                    num = results[0].number_of_drugs;
                 }
-            });
 
+                num++;
+                console.log("This is the number: " + num);
+                jsonData["number_of_drugs"] = num;
+                var orgData = jsonData["smartcap"];
+                var sc_name = 'smartcap' + (num - 1).toString(10);
+                delete jsonData.smartcap;
+                jsonData[sc_name] = orgData;
+                console.log(jsonData);
+                var updatingJson;
+                if(num==1){
+                    updatingJson = jsonData;
+                }
+                else{
+                    updatingJson= results[0];
+                    updatingJson["number_of_drugs"]=num;
+                    updatingJson[sc_name]= jsonData[sc_name];
+                    
+                }
+                collection.update({
+                    'email': jsonData['email']
+                }, updatingJson, {
+                    upsert: true
+                },
+                function(err, object) {
+                    if (err) {
+                        console.warn(err.message); // returns error if no matching object found
+                    }
+                    else {
+                        res.status(200);
+                        res.send("Data Inseretion Success");
+                    }
+                });
+            });
         }
     });
-}
-
-var uploadAppPatDb= function uploadAppPatDb(email, res){
-    var num = getNumberOfPrescription(email);
 };
-module.exports.uploadAppPatDb= uploadAppPatDb;
+
+
+module.exports.uploadAppPatDb = uploadAppPatDb;
 module.exports.findPatDb = findPatDb;
 module.exports.uploadPatDb = uploadPatDb;

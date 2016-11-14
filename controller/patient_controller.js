@@ -19,7 +19,9 @@ var findPatRecord = function findPatRecord(req, res, patient_db){
 };
 
 var newAppPatRecord = function newAppPatRecord(req, res, patient_db){
-    patient_db.uploadPatDb(req.body, res);
+    var patient_email = "{\"email\":\"" + req.body.email + "\"}";
+    patient_email =JSON.parse(patient_email);
+    patient_db.uploadAppPatDb(req.body, res, patient_email);
 };
 
 module.exports.newAppPatRecord = newAppPatRecord;
