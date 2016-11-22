@@ -6,7 +6,12 @@ var patient_db = require('./model/patient_db_utils');
 var user_db = require("./model/users_db_utils");
 var pat_cntrl = require("./controller/patient_controller");
 var usr_cntrl = require("./controller/users_controller");
-var twilio_client = require('twilio')('AC31ea5942c4d9def2b961decd50056dab','428efe5136f47476b458d21954953fd2');
+var sendText = require("./controller/send_text");
+var schedule = require('node-schedule');
+
+var j = schedule.scheduleJob('0 * * * *', function(){
+  sendText.sendSMS();
+});
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -53,22 +58,6 @@ app.post('/patient/appSubmit', function(req, res) {
     
 });
 
-
-app.get('/twilio', function (req, res){
-   twilio_client.sendMessage({
-       to: '+918237326281',
-       from: '+16148266360',
-       body: 'Do Not Reply: This is Abhi, I am just testing :)'
-   }, function(err, data){
-       if(err){
-           console.log(err);
-       }
-       console.log(data);
-       
-   }) ;
-
-    res.status(200);
-});
 
 app.listen(port, process.env.IP);
 console.log('Listening on port...' + port, process.env.IP);
