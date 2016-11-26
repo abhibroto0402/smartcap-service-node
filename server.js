@@ -7,11 +7,9 @@ var user_db = require("./model/users_db_utils");
 var pat_cntrl = require("./controller/patient_controller");
 var usr_cntrl = require("./controller/users_controller");
 var sendText = require("./controller/send_text");
-var schedule = require('node-schedule');
 
-var j = schedule.scheduleJob('0 * * * *', function(){
-  sendText.sendSMS();
-});
+
+
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -58,6 +56,11 @@ app.post('/patient/appSubmit', function(req, res) {
     
 });
 
+app.get('/twilio', function(req, res) {
+    sendText.sendSMS();
+    res.status(200);
+    res.send("Text Sent");
+})
 
 app.listen(port, process.env.IP);
 console.log('Listening on port...' + port, process.env.IP);

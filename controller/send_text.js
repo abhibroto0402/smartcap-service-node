@@ -1,4 +1,6 @@
 var twilio_client = require('twilio')('AC31ea5942c4d9def2b961decd50056dab','428efe5136f47476b458d21954953fd2');
+var phone_number;
+
 
 var sendSMS = function sendSMS(){
 twilio_client.sendMessage({
