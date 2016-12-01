@@ -7,7 +7,8 @@ var user_db = require("./model/users_db_utils");
 var pat_cntrl = require("./controller/patient_controller");
 var usr_cntrl = require("./controller/users_controller");
 var sendText = require("./controller/send_text");
-
+var event_db = require("./model/event_db_utils");
+var event_cntrl = require("./controller/event_controller");
 
 
 
@@ -60,7 +61,16 @@ app.get('/twilio', function(req, res) {
     sendText.sendSMS();
     res.status(200);
     res.send("Text Sent");
-})
+});
+
+app.post('/event', function(req, res) {
+    event_cntrl.updateEvent(req, res, event_db);
+});
+
+app.get('/event/:email', function(req, res) {
+    event_cntrl.findEvent(req, res, event_db);
+});
+
 
 app.listen(port, process.env.IP);
 console.log('Listening on port...' + port, process.env.IP);
