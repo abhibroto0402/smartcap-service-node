@@ -9,6 +9,7 @@ var updatePatEvent = function updatePatEvent(jsonData, res, email) {
             console.log('Connection established to update', event_url);
             var collection = db.collection('events');
             var num;
+            var temp, humidity;
             collection.find(email).toArray(function(err, results) {
                 if (err) {
                     console.log("Error Encountered finding Patient Records");
@@ -18,16 +19,19 @@ var updatePatEvent = function updatePatEvent(jsonData, res, email) {
                 }
                 else {
                     console.log("Found Record");
-                    num = results[0].Event.open_cap_event_times;
+                    num = jsonData.num;
+                    temp = jsonData.temp_alert;
+                    humidity = jsonData.humidity_alert;
                 }
 
-                num++;
                 console.log("This is the number of times taken: " + num);
                 var updatingJson = results[0];
                 updatingJson.Event.open_cap_event_times = num;
                 updatingJson.date=jsonData.date;
+                updatingJson.Event.temp_alert= temp;
+                updatingJson.Event.humidity_alert= humidity;
                 collection.update({
-                        'email': jsonData['email']
+                        'email': jsonData['email']  
                     }, updatingJson, {
                         upsert: true
                     },
@@ -37,7 +41,7 @@ var updatePatEvent = function updatePatEvent(jsonData, res, email) {
                         }
                         else {
                             res.status(200);
-                            res.send("Data Inseretion Success");
+                            res.send("Event Update Success");
                         }
                     });
             });

@@ -69,6 +69,5 @@ app.get('/event/:email', function(req, res) {
     event_cntrl.findEvent(req, res, event_db);
 });
 
-
 app.listen(port, process.env.IP);
 console.log('Listening on port...' + port, process.env.IP);
