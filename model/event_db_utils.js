@@ -1,4 +1,4 @@
-var event_url = "mongodb://" + process.env.IP + "/events";
+var event_url = "mongodb://127.0.0.1/events";
 var MongoClient = require('mongodb').MongoClient;
 var updatePatEvent = function updatePatEvent(jsonData, res, email) {
     MongoClient.connect(event_url, function(err, db) {

@@ -1,4 +1,4 @@
-var pat_url = "mongodb://" + process.env.IP + "/patient";
+var pat_url = "mongodb://127.0.0.1/patient";
 var MongoClient = require('mongodb').MongoClient;
 
 var uploadPatDb = function uploadPatDb(jsonData, res) {

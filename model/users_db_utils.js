@@ -1,4 +1,4 @@
-var usr_url = "mongodb://" + process.env.IP + "/users";
+var usr_url = "mongodb://127.0.0.1/users";
 var MongoClient = require('mongodb').MongoClient;
 var user_name;
 var uploadUsersDb = function uploadUsersDb(jsonData) {

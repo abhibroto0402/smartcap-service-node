@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var port = process.env.PORT;
+var port =8080;// process.env.PORT;
 var bodyParser = require('body-parser');
 var patient_db = require('./model/patient_db_utils');
 var user_db = require("./model/users_db_utils");
@@ -69,5 +69,5 @@ app.get('/event/:email', function(req, res) {
     event_cntrl.findEvent(req, res, event_db);
 });
 
-app.listen(port, process.env.IP);
-console.log('Listening on port...' + port, process.env.IP);
+app.listen(port);
+console.log('Listening on port...' + port);
