@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var port =8080;// process.env.PORT;
+var port =80;// process.env.PORT;
 var bodyParser = require('body-parser');
 var patient_db = require('./model/patient_db_utils');
 var user_db = require("./model/users_db_utils");
@@ -43,6 +43,9 @@ app.post('/user', function(req, res) {
     usr_cntrl.newUserRecord(convertJSONForDB(req.body), res, user_db);
 });
 
+app.get('/remove/:email',function(req, res){
+	usr_cntrl.updateUserRecord(req, res, user_db);
+});
 app.get('/user/:email/:password', function(req, res) {
     console.log("App Login Initiated..");
     usr_cntrl.findUserRecord(req, res, user_db);
