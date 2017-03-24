@@ -131,7 +131,7 @@ var removeDrug = function removeDrug(email, drugName, res) {
                     var tempJson= results[0];
                     var num = results[0].number_of_drugs;
                     for (var i = 0; i < num - 1; i++) {
-                        var t = 'smartcap' + i
+                        var t = 'smartcap' + i;
                         for (var temp in results[0][t]) {
                             if (temp[1] == drugName) {
                                 delete tempJson[t];
