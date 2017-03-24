@@ -24,7 +24,7 @@ function convertJSONForDB(reqBody) {
     return JSON.parse(b);
 }
 
-app.get('/', (req, res) => {
+app.get('/', function(req, res){
     console.log("Basic Get");
     res.sendFile(__dirname + '/index.html');
 });
@@ -43,9 +43,11 @@ app.post('/user', function(req, res) {
     usr_cntrl.newUserRecord(convertJSONForDB(req.body), res, user_db);
 });
 
-app.get('/remove/:email',function(req, res){
-	usr_cntrl.updateUserRecord(req, res, user_db);
+app.get('/remove/:email/:drugName',function(req, res){
+	pat_cntrl.removeDrug(req, res, patient_db);
 });
+
+
 app.get('/user/:email/:password', function(req, res) {
     console.log("App Login Initiated..");
     usr_cntrl.findUserRecord(req, res, user_db);

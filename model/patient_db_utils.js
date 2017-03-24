@@ -2,7 +2,7 @@ var pat_url = "mongodb://127.0.0.1/patient";
 var MongoClient = require('mongodb').MongoClient;
 
 var uploadPatDb = function uploadPatDb(jsonData, res) {
-    MongoClient.connect(pat_url, function(err, db) {
+    MongoClient.connect(pat_url, function (err, db) {
         if (err) {
             console.log('Unable to connect to the DB server. Error:', err);
             res.status(400);
@@ -19,14 +19,14 @@ var uploadPatDb = function uploadPatDb(jsonData, res) {
 };
 
 var findPatDb = function findPatDb(email, res) {
-    MongoClient.connect(pat_url, function(err, db) {
+    MongoClient.connect(pat_url, function (err, db) {
         if (err) {
             console.log('Unable to connect to the DB server. Error:', err);
         }
         else {
             console.log('Connection established to', pat_url);
             var collection = db.collection('patient');
-            collection.find(email).toArray(function(err, results) {
+            collection.find(email).toArray(function (err, results) {
                 if (err) {
                     console.log("Error Encountered finding Patient Records");
                     res = "";
@@ -50,7 +50,7 @@ var findPatDb = function findPatDb(email, res) {
 
 var uploadAppPatDb = function uploadAppPatDb(jsonData, res, email) {
 
-    MongoClient.connect(pat_url, function(err, db) {
+    MongoClient.connect(pat_url, function (err, db) {
         if (err) {
             console.log('Unable to connect to the DB server. Error:', err);
         }
@@ -58,7 +58,7 @@ var uploadAppPatDb = function uploadAppPatDb(jsonData, res, email) {
             console.log('Connection established to update', pat_url);
             var collection = db.collection('patient');
             var num;
-            collection.find(email).toArray(function(err, results) {
+            collection.find(email).toArray(function (err, results) {
                 if (err) {
                     console.log("Error Encountered finding Patient Records");
                 }
@@ -80,35 +80,95 @@ var uploadAppPatDb = function uploadAppPatDb(jsonData, res, email) {
                 jsonData[sc_name] = orgData;
                 console.log(jsonData);
                 var updatingJson;
-                if(num==1){
+                if (num == 1) {
                     updatingJson = jsonData;
                 }
-                else{
-                    updatingJson= results[0];
-                    updatingJson["number_of_drugs"]=num;
-                    updatingJson[sc_name]= jsonData[sc_name];
-                    
+                else {
+                    updatingJson = results[0];
+                    updatingJson["number_of_drugs"] = num;
+                    updatingJson[sc_name] = jsonData[sc_name];
+
                 }
                 collection.update({
-                    'email': jsonData['email']
-                }, updatingJson, {
-                    upsert: true
-                },
-                function(err, object) {
-                    if (err) {
-                        console.warn(err.message); // returns error if no matching object found
-                    }
-                    else {
-                        res.status(200);
-                        res.send("Data Inseretion Success");
-                    }
-                });
+                        'email': jsonData['email']
+                    }, updatingJson, {
+                        upsert: true
+                    },
+                    function (err, object) {
+                        if (err) {
+                            console.warn(err.message); // returns error if no matching object found
+                        }
+                        else {
+                            res.status(200);
+                            res.send("Data Inseretion Success");
+                        }
+                    });
             });
         }
     });
 };
 
 
+var removeDrug = function removeDrug(email, drugName, res) {
+    MongoClient.connect(pat_url, function (err, db) {
+        if (err) {
+            console.log('Unable to connect to the DB server. Error:', err);
+        }
+        else {
+            console.log('Connection established to', pat_url);
+            var collection = db.collection('patient');
+            collection.find(email).toArray(function (err, results) {
+                if (err) {
+                    console.log("Error Encountered finding Patient Records");
+                    res = "";
+                }
+                else if (typeof results[0] == 'undefined') {
+                    res.status(200);
+                    res.send("Record Not Found. Please add prescription");
+
+                }
+                else {
+                    var tempJson= results[0];
+                    var num = results[0].number_of_drugs;
+                    for (var i = 0; i < num - 1; i++) {
+                        var t = 'smartcap' + i
+                        for (var temp in results[0][t]) {
+                            if (temp[1] == drugName) {
+                                delete tempJson[t];
+                                collection.deleteOne({email:email});
+                                collection.insert(tempJson);
+                                collection.update({email:email},{$set:{number_of_drugs:num--}});
+                            }
+                        }
+
+                    }
+
+                }
+
+            });
+            collection.find(email).toArray(function (err, results) {
+                if (err) {
+                    console.log("Error Encountered finding Patient Records");
+                    res = "";
+                }
+                else if (typeof results[0] == 'undefined') {
+                    res.status(200);
+                    res.send("Record Not Found. Please add prescription");
+
+                }
+                else {
+                    res.status(200);
+                    res.send(results);
+                }
+            });
+
+        }
+    });
+
+};
+
+
 module.exports.uploadAppPatDb = uploadAppPatDb;
 module.exports.findPatDb = findPatDb;
 module.exports.uploadPatDb = uploadPatDb;
+module.exports.removeDrug = removeDrug;
