@@ -146,22 +146,6 @@ var removeDrug = function removeDrug(email, drugName, res) {
                 }
 
             });
-            collection.find(email).toArray(function (err, results) {
-                if (err) {
-                    console.log("Error Encountered finding Patient Records");
-                    res = "";
-                }
-                else if (typeof results[0] == 'undefined') {
-                    res.status(200);
-                    res.send("Record Not Found. Please add prescription");
-
-                }
-                else {
-                    res.status(200);
-                    res.send(results);
-                }
-            });
-
         }
     });
 
