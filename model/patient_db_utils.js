@@ -142,15 +142,20 @@ var removeDrug = function removeDrug(email, drugName, res) {
                         }
                     }
                     console.log(tempJson);
-                    for(var i=count;i<num;i++){
-                        var temp = 'smartcap' + i-1;
-                        var tem = 'smartcap' + i;
-                        tempJson[temp] = tempJson[tem];
-                        delete tempJson[tem];
+                    if(count==0 && num ==1) delete tempJson['smartcap0'];
+                    else{
+                        for(var i=count;i<num-1;i++){
+                            var temp = 'smartcap' + i-1;
+                            var tem = 'smartcap' + i;
+                            console.log(temp + ' ' + tem);
+                            tempJson[temp] = tempJson[tem];
+                            delete tempJson[tem];
+                        }
+                        // collection.deleteOne(email);
+                        // collection.insert(tempJson);
+                        console.log(tempJson);
                     }
-                   // collection.deleteOne(email);
-                   // collection.insert(tempJson);
-                    console.log(tempJson);
+
                 }
             });
 
