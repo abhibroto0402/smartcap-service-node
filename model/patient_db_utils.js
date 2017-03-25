@@ -131,32 +131,45 @@ var removeDrug = function removeDrug(email, drugName, res) {
                     var tempJson = results[0];
                     var count;
                     var num = results[0].number_of_drugs;
-                    for (var i = 0; i < num - 1; i++) {
-                        var t = 'smartcap' + i;
-                        var arr = results[0][t];
-                        if (arr[1] == drugName) {
-                            count=i;
-                            delete tempJson[t];
-                            delete tempJson['number_of_drugs'];
-                            var x = Number (num);
-                            x--;
-                            tempJson['number_of_drugs']= x.toString();
-                        }
-                    }
-
-                    if(count==0 && results[0].number_of_drugs =='0') delete tempJson['smartcap0'];
-                    else{
-                        for(var i=count;i< Number(tempJson['number_of_drugs']);i++){
-                            var temp = 'smartcap' + i;
-                            i++;
-                            var tem = 'smartcap' + i;
-
-                            tempJson[temp] = tempJson[tem];
-                            delete tempJson[tem];
-                        }
+                    num = Number(num);
+                    if (num == 1) {
+                        tempJson['number_of_drugs'] = 0;
+                        delete tempJson['smartcap0'];
                         collection.deleteOne(email);
                         collection.insert(tempJson);
-                        findPatDb(email,res);
+                        findPatDb(email, res);
+                    }
+                    else {
+                        for (var i = 0; i < num - 1; i++) {
+                            var t = 'smartcap' + i;
+                            var arr = results[0][t];
+                            if (arr[1] == drugName) {
+                                count = i;
+                                delete tempJson[t];
+                                delete tempJson['number_of_drugs'];
+                                var x = Number(num);
+                                x--;
+                                tempJson['number_of_drugs'] = x.toString();
+                            }
+                        }
+                        if(count >= Number(tempJson['number_of_drugs'])){
+                            collection.deleteOne(email);
+                            collection.insert(tempJson);
+                            findPatDb(email, res);
+                        }
+                        else{
+                            for (var i = count; i < Number(tempJson['number_of_drugs']); i++) {
+                                var temp = 'smartcap' + i;
+                                i++;
+                                var tem = 'smartcap' + i;
+                                tempJson[temp] = tempJson[tem];
+                                delete tempJson[tem];
+                            }
+                            collection.deleteOne(email);
+                            collection.insert(tempJson);
+                            findPatDb(email, res);
+                        }
+
                     }
 
                 }
