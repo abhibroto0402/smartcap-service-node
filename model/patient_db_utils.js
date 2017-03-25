@@ -139,14 +139,15 @@ var removeDrug = function removeDrug(email, drugName, res) {
                             delete tempJson[t];
                             delete tempJson['number_of_drugs'];
                             var x = Number (num);
-                            tempJson['number_of_drugs']= x--;
+                            x--;
+                            tempJson['number_of_drugs']= x.toString();
                         }
                     }
                     console.log(tempJson);
                     console.log(results[0].number_of_drugs  + " = " + count);
                     if(count==0 && results[0].number_of_drugs =='1') delete tempJson['smartcap0'];
                     else{
-                        for(var i=count;i<Number (num);i++){
+                        for(var i=count;i< Number(num);i++){
                             var temp = 'smartcap' + i-1;
                             var tem = 'smartcap' + i;
                             console.log("This is what it is" + temp + ' ' + tem);
