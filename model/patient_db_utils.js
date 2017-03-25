@@ -137,7 +137,7 @@ var removeDrug = function removeDrug(email, drugName, res) {
                         if (arr[1] == drugName) {
                             count=i;
                             delete tempJson[t];
-                            tempJson[number_of_drugs]= num--;
+                            tempJson.number_of_drugs= num--;
                         }
                     }
                     tempJson = results[0];
