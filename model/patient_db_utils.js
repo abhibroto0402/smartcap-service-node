@@ -149,7 +149,8 @@ var removeDrug = function removeDrug(email, drugName, res) {
                     else{
                         for(var i=count;i< Number(tempJson['number_of_drugs']);i++){
                             var temp = 'smartcap' + i;
-                            var tem = 'smartcap' + i++;
+                            i++;
+                            var tem = 'smartcap' + i;
                             console.log("This is what it is" + temp + ' ' + tem);
                             tempJson[temp] = tempJson[tem];
                             delete tempJson[tem];
