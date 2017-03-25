@@ -132,6 +132,7 @@ var removeDrug = function removeDrug(email, drugName, res) {
                     var num = results[0].number_of_drugs;
                     for (var i = 0; i < num - 1; i++) {
                         var t = 'smartcap' + i;
+                        console.log(results[0][t]);
                         for (var temp in results[0][t]) {
                             console.log(temp);
                             if (temp[1] == drugName) {
