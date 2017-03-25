@@ -138,7 +138,6 @@ var removeDrug = function removeDrug(email, drugName, res) {
                             count=i;
                             delete tempJson[t];
                             delete tempJson['number_of_drugs'];
-                            console.log(tempJson);
                             var x = Number (num);
                             x--;
                             tempJson['number_of_drugs']= x.toString();
@@ -146,11 +145,11 @@ var removeDrug = function removeDrug(email, drugName, res) {
                     }
                     console.log(tempJson);
                     console.log(results[0].number_of_drugs  + " = " + count);
-                    if(count==0 && results[0].number_of_drugs =='1') delete tempJson['smartcap0'];
+                    if(count==0 && results[0].number_of_drugs =='0') delete tempJson['smartcap0'];
                     else{
-                        for(var i=count;i< Number(num);i++){
-                            var temp = 'smartcap' + i-1;
-                            var tem = 'smartcap' + i;
+                        for(var i=count;i< Number(tempJson['number_of_drugs']);i++){
+                            var temp = 'smartcap' + i;
+                            var tem = 'smartcap' + i++;
                             console.log("This is what it is" + temp + ' ' + tem);
                             tempJson[temp] = tempJson[tem];
                             delete tempJson[tem];
