@@ -27,7 +27,7 @@ var newAppPatRecord = function newAppPatRecord(req, res, patient_db){
 var removeDrug = function removeDrug(req, res, patient_db) {
     var patient_email = "{\"email\":\"" + req.params.email + "\"}";
     console.log(req.params.email + ' ' + req.params.drugName);
-    patient_db.removeDrug(patient_email, req.params.drugName, res);
+   // patient_db.removeDrug(patient_email, req.params.drugName, res);
     patient_db.findPatDb(patient_email,res);
 }
 
