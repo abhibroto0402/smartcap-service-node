@@ -139,9 +139,9 @@ var removeDrug = function removeDrug(email, drugName, res) {
                             console.log(tempJson);
                             console.log(num);
                             console.log(results);
-                            collection.deleteOne({email: email});
+                            collection.deleteOne(email);
                             collection.insert(tempJson);
-                            collection.update({email: email}, {$set: {number_of_drugs: num--}});
+                            collection.update(email, {$set: {number_of_drugs: num--}});
                         }
 
 
