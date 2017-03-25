@@ -142,6 +142,7 @@ var removeDrug = function removeDrug(email, drugName, res) {
                         }
                     }
                     console.log(tempJson);
+                    console.log(num + " = " + count);
                     if(count==0 && num ==1) delete tempJson['smartcap0'];
                     else{
                         for(var i=count;i<num-1;i++){
