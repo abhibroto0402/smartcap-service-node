@@ -137,18 +137,18 @@ var removeDrug = function removeDrug(email, drugName, res) {
                         if (arr[1] == drugName) {
                             count=i;
                             delete tempJson[t];
-                            tempJson.number_of_drugs= num--;
+                            tempJson['number_of_drugs']= num--;
                         }
                     }
-                    tempJson = results[0];
+                    console.log(tempJson);
                     for(var i=count;i<num;i++){
                         var temp = 'smartcap' + i-1;
                         var tem = 'smartcap' + i;
                         tempJson[temp] = tempJson[tem];
                         delete tempJson[tem];
                     }
-                    collection.deleteOne(email);
-                    collection.insert(tempJson);
+                   // collection.deleteOne(email);
+                   // collection.insert(tempJson);
                     console.log(tempJson);
                 }
             });
