@@ -138,6 +138,7 @@ var removeDrug = function removeDrug(email, drugName, res) {
                             count=i;
                             delete tempJson[t];
                             delete tempJson['number_of_drugs'];
+                            console.log(tempJson);
                             var x = Number (num);
                             x--;
                             tempJson['number_of_drugs']= x.toString();
