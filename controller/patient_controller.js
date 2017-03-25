@@ -28,7 +28,6 @@ var removeDrug = function removeDrug(req, res, patient_db) {
     var patient_email = "{\"email\":\"" + req.params.email + "\"}";
     patient_email = JSON.parse(patient_email);
     patient_db.removeDrug(patient_email, req.params.drugName, res);
-    patient_db.findPatDb(patient_email,res);
 }
 
 module.exports.newAppPatRecord = newAppPatRecord;

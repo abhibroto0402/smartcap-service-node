@@ -156,6 +156,7 @@ var removeDrug = function removeDrug(email, drugName, res) {
                         }
                         collection.deleteOne(email);
                         collection.insert(tempJson);
+                        findPatDb(email,res);
                     }
 
                 }
