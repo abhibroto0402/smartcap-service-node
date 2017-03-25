@@ -128,27 +128,25 @@ var removeDrug = function removeDrug(email, drugName, res) {
 
                 }
                 else {
-                    res.status(200);
-                    res.send(results);
-                    var tempJson= results[0];
-                     var num = results[0].number_of_drugs;
-                     console.log(tempJson);
-                     console.log(num);
-                    /* for (var i = 0; i < num - 1; i++) {
-                     var t = 'smartcap' + i;
-                     for (var temp in results[0][t]) {
-                     if (temp[1] == drugName) {
-                     delete tempJson[t];
-                     console.log(tempJson);
-                     console.log(num);
-                     console.log(results);
-                     collection.deleteOne({email:email});
-                     collection.insert(tempJson);
-                     collection.update({email:email},{$set:{number_of_drugs:num--}});
-                     }
-                     }
+                    var tempJson = results[0];
+                    var num = results[0].number_of_drugs;
+                    console.log(tempJson);
+                    console.log(num);
+                    for (var i = 0; i < num - 1; i++) {
+                        var t = 'smartcap' + i;
+                        for (var temp in results[0][t]) {
+                            if (temp[1] == drugName) {
+                                delete tempJson[t];
+                                console.log(tempJson);
+                                console.log(num);
+                                console.log(results);
+                                collection.deleteOne({email: email});
+                                collection.insert(tempJson);
+                                collection.update({email: email}, {$set: {number_of_drugs: num--}});
+                            }
+                        }
 
-                     }*/
+                    }
                 }
             });
 
