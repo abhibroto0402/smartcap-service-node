@@ -140,7 +140,7 @@ var removeDrug = function removeDrug(email, drugName, res) {
                         findPatDb(email, res);
                     }
                     else {
-                        for (var i = 0; i < num - 1; i++) {
+                        for (var i = 0; i < num ; i++) {
                             var t = 'smartcap' + i;
                             var arr = results[0][t];
                             if (arr[1] == drugName) {
