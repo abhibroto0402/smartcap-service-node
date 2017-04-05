@@ -9,7 +9,7 @@ var usr_cntrl = require("./controller/users_controller");
 var sendText = require("./controller/send_text");
 var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
-var sessions = require("client-sessions");
+var session = require("client-sessions");
 app.use(express.static(__dirname));
 
 app.use(bodyParser.urlencoded({
