@@ -21,6 +21,13 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+app.use(errorHandler);
+
+function errorHandler (err, req, res, next) {
+    res.status(500)
+    res.render('error', { error: err })
+}
+
 function convertJSONForDB(reqBody) {
     var b = JSON.stringify(reqBody).replace(/'/g, '"');
     return JSON.parse(b);
