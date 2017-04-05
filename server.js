@@ -45,7 +45,7 @@ app.get('/', function(req, res){
 });
 
 app.post('/login', function (req, res){
-    usr_cntrl.validateUser(req, res, user_db, session);
+    usr_cntrl.validateUser(req, res, user_db, bcrypt);
     req.session.user= req.body.email;
     res.redirect('/dashboard');
 });
