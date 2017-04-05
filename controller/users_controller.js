@@ -14,7 +14,7 @@ var findUserRecord = function findUserRecord(req, res, user_db){
 var validateUser = function validateUser(req, res, user_db){
     var email_pswd = "{\"email\":\"" + req.body.email + "\",\"password\":\"" + req.body.password + "\" }";
     email_pswd = JSON.parse(email_pswd);
-    user_db.findUserDb(email_pswd,res);
+    user_db.findUserWeb(email_pswd,res, req);
 };
 module.exports.newUserRecord = newUserRecord;
 module.exports.findUserRecord =findUserRecord;
