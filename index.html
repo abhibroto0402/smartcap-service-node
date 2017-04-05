@@ -1,105 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>XYZ Pharmacy</title>
+    <title>Login Form</title>
+
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<script>
-    var counter = 0;
-    //Funciton to check if the field is left empty
-    function checkTextField(field) {
-        if (field.value == '') {
-            alert(field.name + " field is empty");
-        }
-    }
-    // Function to add more details for drung and smart cap
-    function addElements(checkboxElem) {
-        if (checkboxElem.checked) {
-            //alert("workging!");
-            createSmartCapFields();
-        }
-    }
-    
-    function createSmartCapFields(){
-        counter++;
-        var parent = document.getElementById('files');
-         var newElement = document.createElement('fieldset');
-         newElement.setAttribute('id', counter);
-         var html =  "SmartCap-ID: <input type=\"text\" placeholder=\"smartcap#\" name=\"smartcap"+ counter +"\"> <br> ";
-         html= html + "Drug Name: <input type=\"text\" placeholder=\"Drug Name\" name=\"smartcap"+counter+"\" id=\"drug_name\"><br> ";
-         html= html + "Daily Dosage: <select name=\"smartcap"+counter+"\" id=\"Drug_ID\"><option value=\"1X\">1X</option><option value=\"2X\">2X</option><option value=\"3X\">3X</option><option value=\"4X\">4X</option></select><br>";
-         html = html + "Meal:<input type=\"radio\" name=\"smartcap"+counter+"\" id=\"Meal\" value=\"Before\"> Before<input type=\"radio\" name=\"smartcap"+counter+"\" id=\"Meal\" value=\"After\" checked =\"checked\"> After <br><br>";
-         html= html + "Expiry Date:<input type=\"date\" name=\"smartcap"+counter+ "\"id=\"expDate\"><br>"
-         html= html + "<br><input type=\"checkbox\" name=\"add\" onchange=\"addElements(this)\">Add Another<br>"
-         newElement.innerHTML =html;
-         parent.appendChild(newElement);
-        
-    }
-    
-</script>
-<body>
 
-<style>
-input[type=text], select {
-    margin: 8px 0;
-    display: inline-block;
-    border-radius: 4px;
-}
 
-input[type=email], select {
-    margin: 8px 0;
-    display: inline-block;
-    border-radius: 4px;
-}
-
-button[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-input[type=submit]:hover {
-    background-color: #45a049;
-}
-
-div {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-}
-</style>
-
-<form action="/patient" method="POST">
-    Full Name: <input type="text" placeholder="name" name="name" onblur="checkTextField(this)"><br>
-    Email: <input type="email" placeholder="email" name="email" onblur="checkTextField(this)"><br> 
-    Phone: <input type="text" placeholder="phone#" name="phone" onblur="checkTextField(this)"><br>
-    <div id="files">
-        <fieldset id="0">
-            SmartCap-ID: <input type="text" placeholder="smartcap#" name="smartcap0" onblur="checkTextField(this)"> <br> 
-            Drug Name: <input type="text" placeholder="Drug Name" name="smartcap0" id="drug_name" onblur="checkTextField(this)"><br> 
-            Daily Dosage: <select name="smartcap0" id="Drug_ID">
-                <option value="1X">1X</option>
-                <option value="2X">2X</option>
-                <option value="3X">3X</option>
-                <option value="4X">4X</option>
-            </select>
-            <br> Meal:
-            <input type="radio" name="smartcap0" id="Meal" value="Before"> Before
-            <input type="radio" name="smartcap0" id="Meal" value="After" checked ="checked"> After <br>
-            <br>
-            Expiry Date:<input type="date" name="smartcap0" id="expDate"><br>
-            <br>
-            <input type="checkbox" name="add" onchange="addElements(this)">Add Another
-            <br>
-        </fieldset>
-    </div>
-    <button type="submit">Submit</button>
-    
+<div class="login">
+    <h1>iMediCap</h1>
+    <form action="/login"  method="post">
+        <input type="text" name="name" placeholder="Username" required="required" />
+        <input type="password" name="password" placeholder="Password" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
     </form>
-</body>
-
+</div>
 </html>
