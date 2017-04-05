@@ -50,7 +50,7 @@ app.post('/login', function (req, res){
 
 app.get('/dashboard', function (req, res) {
    if(req.session &&  req.session.user){
-       res.send(req.session)
+       res.send(req.session.user);
    }
 });
 
