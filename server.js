@@ -44,7 +44,7 @@ app.get('/', function(req, res){
 });
 
 app.post('/login', function (req, res){
-    usr_cntrl.validateUser(req, res, user_db, session);
+    usr_cntrl.validateUser(req, res, user_db);
     res.redirect('/dashboard');
 });
 
@@ -52,6 +52,7 @@ app.get('/dashboard', function (req, res) {
    if(req.session &&  req.session.user){
        res.send(req.session.user);
    }
+   res.send('Err');
 });
 
 app.post('/patient', function(req, res) {
