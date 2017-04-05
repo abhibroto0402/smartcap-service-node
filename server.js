@@ -30,7 +30,7 @@ app.get('/', function(req, res){
 
 app.get('/login', function (req, res){
     console.log(req.params.name);
-    conole.log(req.params.password);
+    console.log(req.params.password);
     res.statusCode(200);
 });
 
