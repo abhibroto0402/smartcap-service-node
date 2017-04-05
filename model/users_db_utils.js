@@ -34,7 +34,7 @@ var findUserWeb = function findUserDb(email_pswd_json, res, req) {
                 }
                 else {
                     console.log("User found");
-                    req.session.user = results[0];
+                    req.session.user= results[0];
                 }
             });
         }
@@ -60,7 +60,6 @@ var findUserDb = function findUserDb(email_pswd_json, res) {
                 }
                 else {
                     console.log("User found");
-                    req.session.user=user;
                     res.status(200);
                     res.send(results[0]);
                 }
