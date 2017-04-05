@@ -15,6 +15,7 @@
   "homepage": "https://bitbucket.org/abhibroto0402/smartcap-server#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "client-sessions": "^0.7.0",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "mongodb": "^2.2.10",

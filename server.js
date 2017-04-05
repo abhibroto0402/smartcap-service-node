@@ -9,7 +9,7 @@ var usr_cntrl = require("./controller/users_controller");
 var sendText = require("./controller/send_text");
 var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
-
+var sessions = require("client-sessions");
 app.use(express.static(__dirname));
 
 app.use(bodyParser.urlencoded({
@@ -21,6 +21,12 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+app.use(session({
+	cookieName: 'session',
+	secret: 'random123123123123432423', //encrypt the session id
+	duration: 30 * 60 * 1000,
+	activeDuration: 5 * 60 * 1000,
+}));
 app.use(errorHandler);
 
 function errorHandler (err, req, res, next) {
@@ -38,8 +44,6 @@ app.get('/', function(req, res){
 });
 
 app.post('/login', function (req, res){
-    console.log(req.body.email);
-    console.log(req.body.password);
     usr_cntrl.validateUser(req, res, user_db);
 });
 
