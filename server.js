@@ -25,14 +25,14 @@ function convertJSONForDB(reqBody) {
 }
 
 app.get('/', function(req, res){
-    res.sendFile(__dirname + '/views/login.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
-/*app.get('/', function(req, res){
-    console.log("Basic Get");
-    res.sendFile(__dirname + '/index.html');
-});*/
-
+app.get('/login', function (req, res){
+    console.log(req.params.name);
+    conole.log(req.params.password);
+    res.statusCode(200);
+});
 
 app.post('/patient', function(req, res) {
     pat_cntrl.newPatRecord(convertJSONForDB(req.body), res, patient_db);
