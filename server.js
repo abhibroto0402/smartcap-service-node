@@ -45,14 +45,12 @@ app.get('/', function(req, res){
 
 app.post('/login', function (req, res){
     usr_cntrl.validateUser(req, res, user_db, session);
-    req.session.user= req.body.email;
     res.redirect('/dashboard');
 });
 
 app.get('/dashboard', function (req, res) {
    if(req.session &&  req.session.user){
-       res.send(req.session.user)
-
+       res.send(req.session)
    }
 });
 
