@@ -10,6 +10,7 @@ var sendText = require("./controller/send_text");
 var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
 var session = require("client-sessions");
+var bcrypt = require('bcryptjs');
 app.use(express.static(__dirname));
 
 app.use(bodyParser.urlencoded({
