@@ -26,11 +26,13 @@ var findUserDb = function findUserDb(email_pswd_json, res) {
             collection.find(email_pswd_json).toArray(function(err, results) {
                 if (err) {
                     console.log("Error Encountered finding User");
-                    res = "";
+                    res.redirect("/");
+                    res.status(404).send({ error: 'Email or Password is incorrect!' })
                 }
                 else if (typeof results[0] == 'undefined') {
                     console.log("user not found");
                     res.sendStatus(401);
+                    res.redirect("/");
                 }
                 else {
                     console.log("User found");
