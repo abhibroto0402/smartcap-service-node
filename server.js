@@ -30,10 +30,10 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/login', function (req, res){
-    console.log(req.params.name);
-    console.log(req.params.password);
-    res.statusCode(200);
+app.post('/login', function (req, res){
+    console.log(req.body.email);
+    console.log(req.body.password);
+    usr_cntrl.validateUser(req, res, user_db);
 });
 
 app.post('/patient', function(req, res) {
