@@ -33,8 +33,9 @@ var findUserWeb = function findUserDb(bcrypt, res, req, email_json) {
                 	res.redirect("/");
                 }
                 else {
-                    console.log("User found");
+
                     if(bcrypt.compareSync(req.body.password, results[0].password)){
+                        console.log("User found");
                         req.session.user= results[0];
                     }
                     else{
