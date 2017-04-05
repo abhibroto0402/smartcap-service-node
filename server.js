@@ -67,6 +67,8 @@ app.get('/patient/:email', function(req, res) {
 });
 
 app.post('/user', function(req, res) {
+    var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+    req.body.password = hash;
     usr_cntrl.newUserRecord(convertJSONForDB(req.body), res, user_db);
 });
 
