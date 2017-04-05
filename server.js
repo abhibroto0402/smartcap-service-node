@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var port =80;// process.env.PORT;
+var port =80;
 var bodyParser = require('body-parser');
 var patient_db = require('./model/patient_db_utils');
 var user_db = require("./model/users_db_utils");
@@ -9,6 +9,8 @@ var usr_cntrl = require("./controller/users_controller");
 var sendText = require("./controller/send_text");
 var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
+
+app.use(express.static(__dirname));
 
 app.use(bodyParser.urlencoded({
     extended: false
