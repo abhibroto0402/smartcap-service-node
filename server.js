@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(session({
-	cookieName: 'medsession',
+	cookieName: 'session',
 	secret: 'random123123123123432423', //encrypt the session id
 	duration: 30 * 60 * 1000,
 	activeDuration: 5 * 60 * 1000,
@@ -49,8 +49,8 @@ app.post('/login', function (req, res){
 });
 
 app.get('/dashboard', function (req, res) {
-   if(req.medsession &&  req.medsession.user){
-       res.send(req.medsession.user);
+   if(req.session &&  req.session.user){
+       res.send(req.session.user);
    }
 });
 
