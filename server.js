@@ -21,8 +21,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use(cookieParser('randomStringisHere222'));
-app.use(csrf({cookie:{key:XSRF-TOKEN,path:'/'}}));
+app.use(csrf());
 
 app.use(bodyParser.json());
 
@@ -52,8 +51,8 @@ function convertJSONForDB(reqBody) {
     return JSON.parse(b);
 }
 
-app.get('/', csrfProtection, function(req, res){
-    res.render('index.html', {csrfToken: req.csrfToken()});
+app.get('/', function(req, res){
+	res.sendFile(__dirname + '/index.html');   	
 });
 
 app.post('/login', function (req, res){
