@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: false });
 var app = express();
@@ -13,18 +14,29 @@ var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
 var session = require("client-sessions");
 var bcrypt = require('bcryptjs');
+var index = require('./index');
+var dashboard = require ('./routes/dashboard');
+
+//View Engine
+app.set('views',path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile)
+
+//Set Static Folder
+app.use(express.static(__dirname, 'client'));
 
 
-app.use(express.static(__dirname));
-
+//Body parser MW
+/*app.use(bodyParser.urlencoded({
+    extended: false
+}));*/
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use('/', index);
+app.use('/dashboard', tasks);
 
 app.use(session({
     cookieName: 'session',
@@ -44,9 +56,9 @@ function convertJSONForDB(reqBody) {
     return JSON.parse(b);
 }
 
-app.get('/', csrfProtection, function(req, res){
+/*app.get('/', csrfProtection, function(req, res){
     res.sendFile(__dirname + '/index.html');
-});
+});*/
 
 app.post('/login', function (req, res){
     usr_cntrl.validateUser(req, res, user_db, bcrypt);
@@ -54,11 +66,11 @@ app.post('/login', function (req, res){
     res.redirect('/dashboard');
 });
 
-app.get('/dashboard', csrfProtection, function (req, res) {
+/*app.get('/dashboard', csrfProtection, function (req, res) {
     if(req.session &&  req.session.user){
-        res.sendFile(__dirname+'/views/login.html', {csrfToken: req.csrfToken() })
+        res.sendFile(__dirname+'/views/dashboard.html', {csrfToken: req.csrfToken() })
     }
-});
+});*/
 
 app.post('/patient', function(req, res) {
     pat_cntrl.newPatRecord(convertJSONForDB(req.body), res, patient_db);
