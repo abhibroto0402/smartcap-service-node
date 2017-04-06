@@ -1,4 +1,5 @@
 var express = require('express');
+var csurf = require('csurf');
 var app = express();
 var port =80;
 var bodyParser = require('body-parser');
@@ -16,6 +17,8 @@ app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
+app.use(csurf());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -49,7 +52,7 @@ function convertJSONForDB(reqBody) {
 }
 
 app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/index.html', {csrfToken: req.csrfToken() });
 });
 
 app.post('/login', function (req, res){
