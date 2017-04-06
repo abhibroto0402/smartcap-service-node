@@ -23,7 +23,7 @@ var getGraphDetails = function (req, res) {
                     res.status(404);
                 }
                 else {
-                    finalString = results[0].daily_comp;
+                    finalString = results[0];
                 }
             });
         }
@@ -47,7 +47,7 @@ var getGraphDetails = function (req, res) {
                     res.status(404);
                 }
                 else {
-                    finalString = finalString + results[0].daily_comp;
+                    finalString = finalString + results[0];
                 }
             });
         }
