@@ -55,6 +55,7 @@ app.post('/login', function (req, res){
 });
 
 app.get('/dashboard', csrfProtection, function (req, res) {
+    console.log(req.body.email);
     analytics.getGraphDetails(req,res);
 });
 

@@ -53,9 +53,7 @@ var getGraphDetails = function (req, res) {
         }
 
     });
-
-    res.status(200);
-    res.send(finalString);
+    console.log("This might work!: ", finalString);
 }
 
 module.exports.getGraphDetails = getGraphDetails;
