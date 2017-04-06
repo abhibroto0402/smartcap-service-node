@@ -23,7 +23,6 @@ app.use(function (req, res, next) {
     res.locals.csrftoken = req.csrfToken();
     next();
 });
-app.use(app.router);
 
 app.use(bodyParser.urlencoded({
     extended: false
