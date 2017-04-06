@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/', index);
-app.use('/dashboard', dashboard);
+//app.use('/dashboard', dashboard);
 
 app.use(session({
     cookieName: 'session',
@@ -66,11 +66,11 @@ app.post('/login', function (req, res){
     res.redirect('/dashboard');
 });
 
-/*app.get('/dashboard', csrfProtection, function (req, res) {
+app.get('/dashboard', csrfProtection, function (req, res) {
     if(req.session &&  req.session.user){
         res.sendFile(__dirname+'/views/dashboard.html', {csrfToken: req.csrfToken() })
     }
-});*/
+});
 
 app.post('/patient', function(req, res) {
     pat_cntrl.newPatRecord(convertJSONForDB(req.body), res, patient_db);
