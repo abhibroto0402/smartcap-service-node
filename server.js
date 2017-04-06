@@ -1,4 +1,5 @@
 var express = require('express');
+var cookieParser = require('cookie-parser');
 var csrf = require('csurf');
 var app = express();
 var port =80;
@@ -13,18 +14,28 @@ var event_cntrl = require("./controller/event_controller");
 var session = require("client-sessions");
 var bcrypt = require('bcryptjs');
 var csrfProtection = csrf({ cookie: true })
-//app.use(express.static(__dirname));
+app.use(express.static(__dirname));
 
+/*app.use(function (req, res, next) {
+  res.cookie('XSRF-TOKEN', req.csrfToken());
+  res.locals.csrftoken = req.csrfToken();
+  next();
+});*/
+app.use(cookieParser());
+app.use(csrf({ cookie: false }))
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-
-app.use(csrf());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+app.use(function(req, res, next){
+    res.locals.token = req.csrfToken();
+    next();
+});
 
 app.use(session({
 	cookieName: 'session',
@@ -53,7 +64,7 @@ function convertJSONForDB(reqBody) {
 }
 
 app.get('/', csrfProtection, function(req, res){
-    res.render('index.html', {csrfToken: req.csrfToken()});
+    res.render('./index.html', {csrfToken: req.csrfToken()});
 });
 
 app.post('/login', function (req, res){
