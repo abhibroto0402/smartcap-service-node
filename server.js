@@ -45,7 +45,7 @@ function convertJSONForDB(reqBody) {
 }
 
 app.get('/', csrfProtection, function(req, res){
-    res.sendFile(__dirname + '/index.html', { csrfToken: req.csrfToken() });
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.post('/login', function (req, res){
@@ -56,7 +56,7 @@ app.post('/login', function (req, res){
 
 app.get('/dashboard', csrfProtection, function (req, res) {
     if(req.session &&  req.session.user){
-        res.send(req.csrfToken());
+        res.sendFile(__dirname+'/views/login.html', {csrfToken: req.csrfToken() })
     }
 });
 
