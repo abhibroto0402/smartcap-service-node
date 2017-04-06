@@ -12,6 +12,7 @@ var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
 var session = require("client-sessions");
 var bcrypt = require('bcryptjs');
+var csrfProtection = csrf({ cookie: true })
 app.use(express.static(__dirname));
 
 app.use(bodyParser.urlencoded({
@@ -51,7 +52,7 @@ function convertJSONForDB(reqBody) {
     return JSON.parse(b);
 }
 
-app.get('/', function(req, res){
+app.get('/', csrfProtection, function(req, res){
     res.render(__dirname + '/index.html', {csrfToken: req.csrfToken()});
 });
 
