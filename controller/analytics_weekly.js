@@ -7,14 +7,14 @@ var getGraphDetails = function (req, res) {
     var email = "{\"email\":\"" + req.params.email + "\"}";
     var email_json = JSON.parse(email);
     MongoClient.connect(analytics_weekly, function (err, db) {
-        if(err){
+        if (err) {
             console.log('Unable to connect to the DB server. Error:', err);
 
         }
         else {
-            console.log('Connection established' , analytics_weekly);
+            console.log('Connection established', analytics_weekly);
             var collection = db.collection('weekly');
-            collection.find(email_json).toArray(function(err, results) {
+            collection.find(email_json).toArray(function (err, results) {
                 if (err) {
                     console.log("Error Encountered finding User Records");
                     res = "";
@@ -23,23 +23,23 @@ var getGraphDetails = function (req, res) {
                     res.status(404);
                 }
                 else {
-			fi1 = results[0].daily_comp;
-               		console.log(fi1);
-		 }
+                    fi1 = results[0].daily_comp;
+                    console.log(fi1);
+                }
             });
         }
 
     });
 
     MongoClient.connect(analytics_biweekly, function (err, db) {
-        if(err){
+        if (err) {
             console.log('Unable to connect to the DB server. Error:', err);
 
         }
         else {
             console.log('Connection established', analytics_biweekly);
             var collection = db.collection('biweekly');
-            collection.find(email_json).toArray(function(err, results) {
+            collection.find(email_json).toArray(function (err, results) {
                 if (err) {
                     console.log("Error Encountered finding User Records");
                     res = "";
@@ -48,10 +48,10 @@ var getGraphDetails = function (req, res) {
                     res.status(404);
                 }
                 else {
-                    	fi2 = results[0].daily_comp;
-			console.log(fi2);
-			console.log("This might work!: ", fi1, fi2);
-        		res.send(JSON.stringify({'a':fi1, 'b': fi2}));
+                    fi2 = results[0].daily_comp;
+                    console.log(fi2);
+                    console.log("This might work!: ", fi1, fi2);
+                    res.send(JSON.stringify({'weekly': fi1, 'biweekly': fi2}));
                 }
             });
         }
