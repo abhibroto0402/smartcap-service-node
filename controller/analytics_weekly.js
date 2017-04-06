@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 
 var getGraphDetails = function (req, res) {
     var finalString="{}";
-    var email = "{\"email\":\"" + req.body.email + "\"}";
+    var email = "{\"email\":\"" + req.params.email + "\"}";
     var email_json = JSON.parse(email);
     MongoClient.connect(analytics_weekly, function (err, db) {
         if(err){
@@ -54,6 +54,7 @@ var getGraphDetails = function (req, res) {
 
     });
     console.log("This might work!: ", finalString);
+	res.send(finalString);
 }
 
 module.exports.getGraphDetails = getGraphDetails;

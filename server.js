@@ -51,11 +51,11 @@ function convertJSONForDB(reqBody) {
 app.post('/login', function (req, res){
     usr_cntrl.validateUser(req, res, user_db, bcrypt);
     req.session.user= req.body.email;
-    res.redirect('/dashboard');
+    res.redirect('/dashboard?email='+req.body.email);
 });
 
 app.get('/dashboard', csrfProtection, function (req, res) {
-    console.log(req.body.email);
+    console.log(req.params.email);
     analytics.getGraphDetails(req,res);
 });
 

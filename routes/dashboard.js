@@ -2,7 +2,7 @@ var express = require ('express');
 var router = express.Router();
 
 router.get('/dashboard', function (req, res, next) {
-    res.render('dashboard.html');
+    res.send('dashboard');
 });
 
 module.exports = router;
