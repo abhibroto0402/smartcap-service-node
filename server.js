@@ -16,13 +16,13 @@ var bcrypt = require('bcryptjs');
 var csrfProtection = csrf({ cookie: true })
 app.use(express.static(__dirname));
 
-/*app.use(function (req, res, next) {
-  res.cookie('XSRF-TOKEN', req.csrfToken());
-  res.locals.csrftoken = req.csrfToken();
-  next();
-});*/
+app.use(function (req, res, next) {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.locals.csrftoken = req.csrfToken();
+    next();
+});
 app.use(cookieParser());
-app.use(csrf({ cookie: false }))
+app.use(csrf({ cookie: true }))
 app.use(bodyParser.urlencoded({
     extended: false
 }));
