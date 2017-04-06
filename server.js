@@ -44,12 +44,12 @@ app.use(session({
     duration: 30 * 60 * 1000,
     activeDuration: 5 * 60 * 1000,
 }));
-app.use(errorHandler);
+//app.use(errorHandler);
 
-function errorHandler (err, req, res, next) {
+/*function errorHandler (err, req, res, next) {
     res.status(500)
     res.render('error', { error: err })
-}
+}*/
 
 function convertJSONForDB(reqBody) {
     var b = JSON.stringify(reqBody).replace(/'/g, '"');
