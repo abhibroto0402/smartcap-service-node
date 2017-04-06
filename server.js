@@ -16,27 +16,15 @@ var bcrypt = require('bcryptjs');
 var csrfProtection = csrf({ cookie: true });
 
 app.use(express.static(__dirname));
-app.use(cookieParser());
-app.use(csrf({ cookie: true }))
-app.use(function (req, res, next) {
-    res.cookie('XSRF-TOKEN', req.csrfToken());
-    res.locals.csrftoken = req.csrfToken();
-    next();
-});
 
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(cookieParser('randomStringisHere222'));
+app.use(csrf({cookie:{key:XSRF-TOKEN,path:'/'}}));
 
-app.use(function(req, res, next){
-    res.locals.token = req.csrfToken();
-    next();
-});
+app.use(bodyParser.json());
 
 app.use(session({
 	cookieName: 'session',
@@ -65,7 +53,7 @@ function convertJSONForDB(reqBody) {
 }
 
 app.get('/', csrfProtection, function(req, res){
-    res.render('./index.html', {csrfToken: req.csrfToken()});
+    res.render('index.html', {csrfToken: req.csrfToken()});
 });
 
 app.post('/login', function (req, res){
