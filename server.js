@@ -30,6 +30,14 @@ app.use(session({
 }));
 app.use(errorHandler);
 
+function requireLogin(req, res, next){
+    if(!req.user){
+        res.redirect('/login');
+    }
+    else
+        next();
+};
+
 function errorHandler (err, req, res, next) {
     res.status(500)
     res.render('error', { error: err })
@@ -50,7 +58,7 @@ app.post('/login', function (req, res){
     res.redirect('/dashboard');
 });
 
-app.get('/dashboard', function (req, res) {
+app.get('/dashboard', requireLogin, function (req, res) {
    if(req.session &&  req.session.user){
        res.send('It is working');
    }
