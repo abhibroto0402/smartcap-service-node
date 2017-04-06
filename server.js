@@ -13,16 +13,18 @@ var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
 var session = require("client-sessions");
 var bcrypt = require('bcryptjs');
-var csrfProtection = csrf({ cookie: true })
-app.use(express.static(__dirname));
+var csrfProtection = csrf({ cookie: true });
 
+app.use(express.static(__dirname));
+app.use(cookieParser());
+app.use(csrf({ cookie: true }))
 app.use(function (req, res, next) {
     res.cookie('XSRF-TOKEN', req.csrfToken());
     res.locals.csrftoken = req.csrfToken();
     next();
 });
-app.use(cookieParser());
-app.use(csrf({ cookie: true }))
+app.use(app.router);
+
 app.use(bodyParser.urlencoded({
     extended: false
 }));
