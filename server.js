@@ -1,4 +1,6 @@
 var express = require('express');
+var csurf = require('csurf');
+var csrfProtection = csrf({ cookie: false });
 var app = express();
 var port =80;
 var bodyParser = require('body-parser');
@@ -11,6 +13,8 @@ var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
 var session = require("client-sessions");
 var bcrypt = require('bcryptjs');
+
+
 app.use(express.static(__dirname));
 
 app.use(bodyParser.urlencoded({
@@ -40,7 +44,7 @@ function convertJSONForDB(reqBody) {
     return JSON.parse(b);
 }
 
-app.get('/', function(req, res){
+app.get('/', csrfProtection, function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
@@ -50,9 +54,9 @@ app.post('/login', function (req, res){
     res.redirect('/dashboard');
 });
 
-app.get('/dashboard', function (req, res) {
+app.get('/dashboard', csrfProtection, function (req, res) {
     if(req.session &&  req.session.user){
-        res.send('It is working');
+        res.send(req.csrfToken());
     }
 });
 
