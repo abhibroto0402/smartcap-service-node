@@ -9,6 +9,7 @@ var patient_db = require('./model/patient_db_utils');
 var user_db = require("./model/users_db_utils");
 var pat_cntrl = require("./controller/patient_controller");
 var usr_cntrl = require("./controller/users_controller");
+var analytics = require ("./controller/analytics_weekly");
 var sendText = require("./controller/send_text");
 var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
@@ -54,9 +55,7 @@ app.post('/login', function (req, res){
 });
 
 app.get('/dashboard', csrfProtection, function (req, res) {
-    if(req.session &&  req.session.user){
-        res.sendFile(__dirname+'/views/dashboard.html', {csrfToken: req.csrfToken() })
-    }
+    analytics.getGraphDetails(req,res);
 });
 
 app.post('/patient', function(req, res) {
