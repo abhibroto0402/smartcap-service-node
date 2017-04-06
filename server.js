@@ -1,6 +1,4 @@
 var express = require('express');
-var cookieParser = require('cookie-parser');
-var csrf = require('csurf');
 var app = express();
 var port =80;
 var bodyParser = require('body-parser');
@@ -13,33 +11,24 @@ var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
 var session = require("client-sessions");
 var bcrypt = require('bcryptjs');
-var csrfProtection = csrf({ cookie: true });
-
 app.use(express.static(__dirname));
 
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use(csrf());
-
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(session({
-	cookieName: 'session',
-	secret: 'random123123123123432423', //encrypt the session id
-	duration: 30 * 60 * 1000,
-	activeDuration: 5 * 60 * 1000,
+    cookieName: 'session',
+    secret: 'random123123123123432423', //encrypt the session id
+    duration: 30 * 60 * 1000,
+    activeDuration: 5 * 60 * 1000,
 }));
 app.use(errorHandler);
-
-function requireLogin(req, res, next){
-    if(!req.user){
-        res.redirect('/');
-    }
-    else
-        next();
-};
 
 function errorHandler (err, req, res, next) {
     res.status(500)
@@ -52,7 +41,7 @@ function convertJSONForDB(reqBody) {
 }
 
 app.get('/', function(req, res){
-	res.sendFile(__dirname + '/index.html');   	
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.post('/login', function (req, res){
@@ -61,10 +50,10 @@ app.post('/login', function (req, res){
     res.redirect('/dashboard');
 });
 
-app.get('/dashboard', requireLogin, function (req, res) {
-   if(req.session &&  req.session.user){
-       res.send('It is working');
-   }
+app.get('/dashboard', function (req, res) {
+    if(req.session &&  req.session.user){
+        res.send('It is working');
+    }
 });
 
 app.post('/patient', function(req, res) {
@@ -84,20 +73,20 @@ app.post('/user', function(req, res) {
 });
 
 app.get('/remove/:email/:drugName',function(req, res){
-	pat_cntrl.removeDrug(req, res, patient_db);
+    pat_cntrl.removeDrug(req, res, patient_db);
 });
 
 
 app.get('/user/:email/:password', function(req, res) {
     console.log("App Login Initiated..");
     usr_cntrl.findUserRecord(req, res, user_db);
-    
+
 });
 
 // Adding prescription schedule from the Mobile APP
 app.post('/patient/appSubmit', function(req, res) {
     pat_cntrl.newAppPatRecord(req, res, patient_db);
-    
+
 });
 
 app.get('/twilio', function(req, res) {
