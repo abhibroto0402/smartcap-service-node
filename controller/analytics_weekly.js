@@ -3,7 +3,8 @@ var analytics_biweekly = "mongodb://127.0.0.1/biweekly";
 var MongoClient = require('mongodb').MongoClient;
 
 var getGraphDetails = function (req, res) {
-    var finalString="{}";
+    var fi1;
+	var fi2;
     var email = "{\"email\":\"" + req.params.email + "\"}";
     var email_json = JSON.parse(email);
     MongoClient.connect(analytics_weekly, function (err, db) {
@@ -23,7 +24,8 @@ var getGraphDetails = function (req, res) {
                     res.status(404);
                 }
                 else {
-                    finalString = results[0];
+                   	console.log(results[0].daily_comp);
+			 fi1 = results[0].daily_comp;
                 }
             });
         }
@@ -47,14 +49,14 @@ var getGraphDetails = function (req, res) {
                     res.status(404);
                 }
                 else {
-                    finalString = finalString + results[0];
+                    fi2 = results[0].daily_comp;
                 }
             });
         }
 
     });
-    console.log("This might work!: ", finalString);
-	res.send(finalString);
+    console.log("This might work!: ", fi1, fi2);
+	res.send(JSON.stringify({a:fi1, b: fi2}));
 }
 
 module.exports.getGraphDetails = getGraphDetails;
