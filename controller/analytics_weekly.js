@@ -1,4 +1,5 @@
 var analytics_weekly = "mongodb://127.0.0.1/weekly";
+var analytics_biweekly = "mongodb://127.0.0.1/biweekly";
 var MongoClient = require('mongodb').MongoClient;
 
 var getGraphDetails = function (req, res) {
@@ -11,7 +12,7 @@ var getGraphDetails = function (req, res) {
 
         }
         else {
-            console.log('Connection established');
+            console.log('Connection established' , analytics_weekly);
             var collection = db.collection('weekly');
             collection.find(email_json).toArray(function(err, results) {
                 if (err) {
@@ -35,7 +36,7 @@ var getGraphDetails = function (req, res) {
 
         }
         else {
-            console.log('Connection established');
+            console.log('Connection established', analytics_biweekly);
             var collection = db.collection('biweekly');
             collection.find(email_json).toArray(function(err, results) {
                 if (err) {
