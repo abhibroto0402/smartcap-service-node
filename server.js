@@ -27,16 +27,12 @@ app.use(express.static(__dirname));
 
 
 //Body parser MW
-/*app.use(bodyParser.urlencoded({
-    extended: false
-}));*/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
 app.use('/', index);
-//app.use('/dashboard', dashboard);
 
 app.use(session({
     cookieName: 'session',
@@ -44,21 +40,12 @@ app.use(session({
     duration: 30 * 60 * 1000,
     activeDuration: 5 * 60 * 1000,
 }));
-//app.use(errorHandler);
 
-/*function errorHandler (err, req, res, next) {
-    res.status(500)
-    res.render('error', { error: err })
-}*/
 
 function convertJSONForDB(reqBody) {
     var b = JSON.stringify(reqBody).replace(/'/g, '"');
     return JSON.parse(b);
 }
-
-/*app.get('/', csrfProtection, function(req, res){
-    res.sendFile(__dirname + '/index.html');
-});*/
 
 app.post('/login', function (req, res){
     usr_cntrl.validateUser(req, res, user_db, bcrypt);
