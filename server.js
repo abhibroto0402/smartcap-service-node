@@ -14,7 +14,7 @@ var event_db = require("./model/event_db_utils");
 var event_cntrl = require("./controller/event_controller");
 var session = require("client-sessions");
 var bcrypt = require('bcryptjs');
-var index = require('./index');
+var index = require('./routes/index');
 var dashboard = require ('./routes/dashboard');
 
 //View Engine
@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/', index);
-app.use('/dashboard', tasks);
+app.use('/dashboard', dashboard);
 
 app.use(session({
     cookieName: 'session',
