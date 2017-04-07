@@ -1,21 +1,40 @@
-<!-- Filename: main.handlebars -->
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <title>FusionCharts Sample</title>
-</head>
-<body>
-<div class="container">
-    {{{body}}}
-</div>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/AJAX/libs/handlebars.js/4.0.0/handlebars.js"></script>
-<script src="/public/js/fusioncharts_demo.js" charset="utf-8"></script>
-<script src="/public/js/fusioncharts.js"></script>
-<script src="/public/js/fusioncharts.charts.js"></script>
-<script src="/public/js/fusioncharts.theme.zune.js"></script>
-</body>
-</html>
+<canvas id="myChart" width="400" height="400"></canvas>
+<script src="Chart.js">
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+</script>
