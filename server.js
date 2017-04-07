@@ -56,7 +56,8 @@ app.post('/login', function (req, res){
 
 app.get('/dashboard/:email', csrfProtection, function (req, res) {
     analytics.getGraphDetails(req,res);
-    res.render(__dirname + '/views/dashboard.html');
+    res.redirect('https://google.com');
+    //res.render(__dirname + '/views/dashboard.html');
 });
 
 app.post('/patient', function(req, res) {
