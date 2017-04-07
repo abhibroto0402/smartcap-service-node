@@ -9,7 +9,6 @@ var getGraphDetails = function (req, res) {
     MongoClient.connect(analytics_weekly, function (err, db) {
         if (err) {
             console.log('Unable to connect to the DB server. Error:', err);
-
         }
         else {
             console.log('Connection established', analytics_weekly);
@@ -24,7 +23,6 @@ var getGraphDetails = function (req, res) {
                 }
                 else {
                     fi1 = results[0].daily_comp;
-                    console.log(fi1);
                 }
             });
         }
