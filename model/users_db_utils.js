@@ -99,6 +99,7 @@ var getUserName= function getUserName(email){
     
 };
 
+module.exports.getUserName= getUserName;
 module.exports.uploadUsersDb = uploadUsersDb;
 module.exports.findUserDb = findUserDb;
 module.exports.findUserWeb = findUserWeb;
