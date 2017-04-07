@@ -55,8 +55,8 @@ app.post('/login', function (req, res){
 });
 
 app.get('/dashboard/:email', csrfProtection, function (req, res) {
-    console.log(req.params.email);
     analytics.getGraphDetails(req,res);
+    res.render(__dirname + '/views/dashboard.html');
 });
 
 app.post('/patient', function(req, res) {
