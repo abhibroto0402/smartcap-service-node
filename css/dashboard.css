@@ -19,7 +19,6 @@ body {
     height:100%;
     margin: 30px;
     font-family: 'Open Sans', sans-serif;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
 }
 div { width: 45%; height: 45%; float: left;align-content: center}
 h1 {text-align: center; color: mediumvioletred }
