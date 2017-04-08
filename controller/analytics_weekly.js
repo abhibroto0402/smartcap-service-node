@@ -47,7 +47,7 @@ var getGraphDetails = function (req, res) {
                 }
                 else {
                     fi2 = results[0].daily_comp;
-                    //res.send(JSON.stringify({'weekly': fi1, 'biweekly': fi2}));
+                    res.send(JSON.stringify({'weekly': fi1, 'biweekly': fi2}));
                 }
             });
         }
