@@ -22,10 +22,15 @@ body {
 }
 div { width: 45%; height: 45%; float: left;align-content: center}
 h1 {text-align: center; color: mediumvioletred }
-#div1 { background: #DDD; }
-#div2 {  background: rgba(199, 237, 224, 0.87); }
-#div3 { background: cadetblue; }
-#div4 { background: #444; }
+#div1 { background:rgba(184, 218, 237, 0.87);  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=10);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=10); }
+#div2 {  background: rgba(199, 237, 224, 0.87); -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50); }
+#div3 { background: cadetblue;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50); }
+#div4 { background: #444;  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50); }
 #weekly {
     width: auto;
     text-align: center;
