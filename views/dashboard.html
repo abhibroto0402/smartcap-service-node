@@ -1,13 +1,13 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Dashboard</title>
+    <title>Chart.js demo</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
 </head>
 <body>
 
 <div>
-    <canvas id="Weekly" width="600" height="400"></canvas>
+    <canvas id="countries" width="600" height="400"></canvas>
     <script>
         var pieData = [
             {
@@ -28,8 +28,8 @@
             }
         ];
         // Get the context of the canvas element we want to select
-        var weekly = document.getElementById("weekly").getContext("2d");
-        new Chart(weekly).Pie(pieData);
+        var countries = document.getElementById("countries").getContext("2d");
+        new Chart(countries).Pie(pieData);
     </script>
 </div>
 </body>
