@@ -11,9 +11,42 @@
 
 * { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; }
 
-html, body { height: 100%; padding: 0; margin: 0; }
-div { width: 50%; height: 50%; float: left; }
+html { width: 100%; height:100%; overflow:hidden; }
+
+body {
+    width: 100%;
+    height:100%;
+    margin: 30px;
+    font-family: 'Open Sans', sans-serif;
+    background-image: url("http://wallpaper-gallery.net/images/running-wallpaper/running-wallpaper-8.jpg");
+    background-position: 100%;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+}
+div { width: 45%; height: 45%; float: left;align-content: center}
+h1 {text-align: center; color: mediumvioletred }
 #div1 { background: #DDD; }
-#div2 { background: #AAA; }
-#div3 { background: #777; }
+#div2 {  background: rgba(199, 237, 224, 0.87); }
+#div3 { background: cadetblue; }
 #div4 { background: #444; }
+#weekly {
+    width: auto;
+    text-align: center;
+    margin: auto;
+    display: block;
+    padding-top: 30px;
+}
+canvas {
+    display: inline;
+}
+#monthly {
+    width: auto;
+    text-align: center;
+    margin: auto;
+    display: block;
+    padding-top: 30px;
+}
+canvas {
+    display: inline;
+}
+
+

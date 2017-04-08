@@ -4,111 +4,122 @@
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
+    <script src="../public/js/canvasjs.min.js"></script>
 </head>
 <body>
 
 <div id="div1">
-    <canvas id="countries" width="600" height="400"></canvas>
+    <h1>Last Week Compliance</h1>
+    <canvas id="weekly" width="200" height="200"></canvas>
     <script>
         var pieData = [
             {
                 value: 20,
-                color: "#878BB6"
-            },
-            {
-                value: 40,
-                color: "#4ACAB4"
-            },
-            {
-                value: 10,
                 color: "#FF8153"
             },
             {
-                value: 30,
-                color: "#FFEA88"
+                value: 80,
+                color: "#3CB371"
             }
         ];
         // Get the context of the canvas element we want to select
-        var countries = document.getElementById("countries").getContext("2d");
-        new Chart(countries).Pie(pieData);
+        var countries = document.getElementById("weekly").getContext("2d");
+        new Chart(countries).Doughnut(pieData);
     </script>
 </div>
 <div id="div2">
-    <canvas id="biweekly" width="600" height="400"></canvas>
+    <h1>Avg. Monthly Compliance</h1>
+    <canvas id="monthly" width="200" height="200"></canvas>
     <script>
         var pieData = [
             {
-                value: 20,
-                color: "#878BB6"
+                value: 5,
+                color: "#DC143C"
             },
             {
-                value: 40,
-                color: "#4ACAB4"
-            },
-            {
-                value: 10,
-                color: "#FF8153"
-            },
-            {
-                value: 30,
-                color: "#FFEA88"
-            }
-        ];
-        // Get the context of the canvas element we want to select
-        var countries = document.getElementById("biweekly").getContext("2d");
-        new Chart(countries).Pie(pieData);
-    </script>
-</div>
-<div id="div3">
-    <canvas id="monthly" width="600" height="400"></canvas>
-    <script>
-        var pieData = [
-            {
-                value: 20,
-                color: "#878BB6"
-            },
-            {
-                value: 40,
-                color: "#4ACAB4"
-            },
-            {
-                value: 10,
-                color: "#FF8153"
-            },
-            {
-                value: 30,
-                color: "#FFEA88"
+                value: 90,
+                color: "#3CB371"
             }
         ];
         // Get the context of the canvas element we want to select
         var countries = document.getElementById("monthly").getContext("2d");
-        new Chart(countries).Pie(pieData);
+        new Chart(countries).Doughnut(pieData);
+    </script>
+</div>
+<div id="div3">
+    <script>
+        var chart = new CanvasJS.Chart("div3", {
+            title: {
+                text: "Overall Compliance Trend"
+            },
+            axisX: {
+                interval: 5,
+                title:'Days'
+            },
+            axisY:{
+                interval: 20,
+                title: 'On-time (%)',
+            },
+            data: [{
+                type: "line",
+                dataPoints: [
+                    { x: 0, y: 0, lineColor: "red" },
+                    { x: 10, y: 100 },
+                    { x: 20, y: 100},
+                    { x: 30, y: 100, lineColor: "red"},
+                    { x: 38, y: 90, lineColor: "red"},
+                    { x: 40, y: 80, lineColor: "red" },
+                    { x: 52, y: 90, lineColor: "red" },
+                    { x: 64, y: 100 },
+                    { x: 76, y: 100},
+                    { x: 88, y: 100},
+                    { x: 90, y: 100},
+                    { x: 100, y: 100},
+                ]
+            }]
+        });
+        chart.render();
     </script>
 </div>
 <div id="div4">
-    <canvas id="yearly" width="600" height="400"></canvas>
     <script>
-        var pieData = [
-            {
-                value: 20,
-                color: "#878BB6"
+        var chart = new CanvasJS.Chart("div4", {
+            title: {
+                text: "Yesterday's Temperature Trend"
             },
-            {
-                value: 40,
-                color: "#4ACAB4"
+            axisX: {
+                interval: 2,
+                title:'Hrs'
             },
-            {
-                value: 10,
-                color: "#FF8153"
+            axisY:{
+                interval: 20,
+                title: 'Temperature (F)',
+                stripLines:[
+                    {
+                        value:80,
+                        color: "red"
+                    }
+                ]
             },
-            {
-                value: 30,
-                color: "#FFEA88"
-            }
-        ];
-        // Get the context of the canvas element we want to select
-        var countries = document.getElementById("yearly").getContext("2d");
-        new Chart(countries).Pie(pieData);
+            data: [{
+                type: "area",
+                dataPoints: [
+                    { x: 0, y: 70 },
+                    { x: 2, y: 72 },
+                    { x: 4, y: 72},
+                    { x: 6, y: 72 },
+                    { x: 8, y: 74 },
+                    { x: 10, y: 72 },
+                    { x: 12, y: 90 },
+                    { x: 14, y: 74 },
+                    { x: 16, y: 73 },
+                    { x: 18, y: 74 },
+                    { x: 20, y: 72 },
+                    { x: 22, y: 71 },
+                ]
+            }]
+        });
+        chart.render();
     </script>
 </div>
 </body>
