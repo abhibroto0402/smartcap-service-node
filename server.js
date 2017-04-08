@@ -51,14 +51,16 @@ function convertJSONForDB(reqBody) {
 app.post('/login', function (req, res){
     usr_cntrl.validateUser(req, res, user_db, bcrypt);
     req.session.user= req.body.email;
-    res.cookie('email', req.body.email, {
+    /*res.cookie('email', req.body.email, {
         domain: 'ec2-54-70-87-85.us-west-2.compute.amazonaws.com',
         httpOnly: true});
-    res.redirect('http://ec2-54-70-87-85.us-west-2.compute.amazonaws.com');
+    res.redirect('http://ec2-54-70-87-85.us-west-2.compute.amazonaws.com');*/
+    res.redirect('/dashboard'+ req.body.email);
 });
 
 app.get('/dashboard/:email', csrfProtection, function (req, res) {
     analytics.getGraphDetails(req,res);
+    res.render(__dirname + 'views/dashboard.html');
 });
 
 app.post('/patient', function(req, res) {

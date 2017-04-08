@@ -47,10 +47,10 @@ var getGraphDetails = function (req, res) {
                 }
                 else {
                     fi2 = results[0].daily_comp;
-                    res.setHeader('weekly', fi1);
+                   /* res.setHeader('weekly', fi1);
                     res.setHeader('biweekly', fi2);
                     res.writeHead(200, {'Content-Type': 'text/plain'});
-                    res.end('ok');
+                    res.end('ok');*/
                 }
             });
         }
