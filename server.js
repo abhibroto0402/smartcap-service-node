@@ -51,6 +51,10 @@ function convertJSONForDB(reqBody) {
 app.post('/login', function (req, res){
     usr_cntrl.validateUser(req, res, user_db, bcrypt);
     req.session.user= req.body.email;
+    res.writeHead(200, {
+        'Set-Cookie': 'login='+ req.body.email,
+        'Content-Type': 'text/plain'
+    });
     res.redirect('http://ec2-54-70-87-85.us-west-2.compute.amazonaws.com:8080/');
     //res.redirect('/dashboard/'+req.body.email);
 });
