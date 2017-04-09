@@ -569,3 +569,20 @@ Connection established to update mongodb://127.0.0.1/events
 Connection established to mongodb://127.0.0.1/patient
 Connection established to update mongodb://127.0.0.1/events
 Basic Get
+Listening on port...80
+Connection established to mongodb://127.0.0.1/users
+User found
+Connection established mongodb://127.0.0.1/weekly
+Connection established mongodb://127.0.0.1/biweekly
+Connection established to mongodb://127.0.0.1/users
+User found
+Connection established mongodb://127.0.0.1/weekly
+Connection established mongodb://127.0.0.1/biweekly
+Connection established to mongodb://127.0.0.1/users
+User found
+Connection established mongodb://127.0.0.1/weekly
+Connection established mongodb://127.0.0.1/biweekly
+Connection established to mongodb://127.0.0.1/users
+User found
+Connection established mongodb://127.0.0.1/weekly
+Connection established mongodb://127.0.0.1/biweekly

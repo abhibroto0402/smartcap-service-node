@@ -57,7 +57,7 @@ app.post('/login', function (req, res){
 });
 
 app.get('/dashboard/:email', csrfProtection, function (req, res) {
-    console.log('Cookies: ', req.cookies);
+    console.log('Cookies: ', req.cookies.email);
     analytics.getGraphDetails(req,res);
     res.render(__dirname + '/views/dashboard.html');
 });
