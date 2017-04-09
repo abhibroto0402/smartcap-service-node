@@ -70,8 +70,12 @@ app.get('/dashboard/:email', csrfProtection, function (req, res) {
     } catch (err){
         res.redirect('/');
     }
+});
 
-
+app.get('/logout', function (req, res) {
+    res.clearCookie('passkey');
+    res.clearCookie('email');
+    res.redirect('/');
 });
 
 app.post('/patient', function(req, res) {
