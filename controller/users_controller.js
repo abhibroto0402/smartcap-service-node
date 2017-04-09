@@ -6,6 +6,7 @@ var newUserRecord = function newUserRecord(jsonData, res, user_db) {
 };
 
 var findUserRecord = function findUserRecord(req, res, user_db){
+    console.log(req.params.password);
    var email_pswd = "{\"email\":\"" + req.params.email + "\",\"password\":\"" + req.params.password + "\" }";
    email_pswd = JSON.parse(email_pswd);
    user_db.findUserDb(email_pswd,res);
