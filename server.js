@@ -53,9 +53,7 @@ function convertJSONForDB(reqBody) {
 app.post('/login', function (req, res){
     usr_cntrl.validateUser(req, res, user_db, bcrypt);
     req.session.user= req.body.email;
-    res.cookie('email', req.body.email, {
-        httpOnly: true});
-    res.redirect('/dashboard/'+ req.body.email);
+    res.cookie('email', req.body.email, {httpOnly: true});
 });
 
 app.get('/dashboard/:email', csrfProtection, function (req, res) {
