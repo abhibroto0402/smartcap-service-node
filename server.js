@@ -101,8 +101,8 @@ app.get('/remove/:email/:drugName',function(req, res){
 
 app.get('/user/:email/:password', function(req, res) {
     console.log("App Login Initiated..");
+    req.params.password = bcrypt.hashSync(req.params.password, bcrypt.genSaltSync(10));
     usr_cntrl.findUserRecord(req, res, user_db);
-
 });
 
 // Adding prescription schedule from the Mobile APP
