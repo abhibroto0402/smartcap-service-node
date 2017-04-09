@@ -64,10 +64,9 @@ var findUserDb = function findUserDb(bcrypt, res, req, email_json) {
                 }
                 else if (typeof results[0] == 'undefined') {
                     console.log("user not found");
-                    res.redirect("/");
+                    res.send("");
                 }
                 else {
-
                     if(bcrypt.compareSync(req.body.password, results[0].password)){
                         console.log("User found");
                         req.session.user= results[0];

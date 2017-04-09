@@ -8,7 +8,7 @@ var newUserRecord = function newUserRecord(jsonData, res, user_db) {
 var findUserRecord = function findUserRecord(req, res, user_db, bcrypt){
     var email = "{\"email\":\"" + req.body.email + "\"}";
     email_json = JSON.parse(email);
-    user_db.findUserRecord(bcrypt,res, req, email_json);
+    user_db.findUserDb(bcrypt,res, req, email_json);
 };
 
 var validateUser = function validateUser(req, res, user_db, bcrypt){
