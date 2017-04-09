@@ -49,7 +49,7 @@ var findUserWeb = function findUserDb(bcrypt, res, req, email_json) {
     });
 };
 
-var findUserDb = function findUserDb(email_pswd_json, res) {
+var findUserDb = function findUserDb(bcrypt, res, req, email_json) {
     MongoClient.connect(usr_url, function(err, db) {
         if (err) {
             console.log('Unable to connect to the DB server. Error:', err);
@@ -57,19 +57,27 @@ var findUserDb = function findUserDb(email_pswd_json, res) {
         else {
             console.log('Connection established to', usr_url);
             var collection = db.collection('users');
-            collection.find(email_pswd_json).toArray(function(err, results) {
+            collection.find(email_json).toArray(function(err, results) {
                 if (err) {
                     console.log("Error Encountered finding User");
                     res.send("");
                 }
                 else if (typeof results[0] == 'undefined') {
-                    res.status(404)
-                    res.send('Email or Password is incorrect!');
+                    console.log("user not found");
+                    res.redirect("/");
                 }
                 else {
-                    console.log("User found");
-                    res.status(200);
-                    res.send(results[0]);
+
+                    if(bcrypt.compareSync(req.body.password, results[0].password)){
+                        console.log("User found");
+                        req.session.user= results[0];
+                        res.status(200);
+                        res.send(results[0]);
+                    }
+                    else{
+                        res.status(404);
+                        res.send('Email or Password is incorrect!');
+                    }
                 }
             });
         }
