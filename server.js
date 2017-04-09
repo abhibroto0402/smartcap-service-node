@@ -17,6 +17,7 @@ var session = require("client-sessions");
 var bcrypt = require('bcryptjs');
 var index = require('./routes/index');
 var dashboard = require ('./routes/dashboard');
+var cookieParser = require('cookie-parser');
 
 //View Engine
 app.set('views',path.join(__dirname, 'views'));
@@ -42,6 +43,7 @@ app.use(session({
     activeDuration: 5 * 60 * 1000,
 }));
 
+app.use(cookieParser());
 
 function convertJSONForDB(reqBody) {
     var b = JSON.stringify(reqBody).replace(/'/g, '"');
@@ -51,14 +53,13 @@ function convertJSONForDB(reqBody) {
 app.post('/login', function (req, res){
     usr_cntrl.validateUser(req, res, user_db, bcrypt);
     req.session.user= req.body.email;
-    /*res.cookie('email', req.body.email, {
-        domain: 'ec2-54-70-87-85.us-west-2.compute.amazonaws.com',
+    res.cookie('email', req.body.email, {
         httpOnly: true});
-    res.redirect('http://ec2-54-70-87-85.us-west-2.compute.amazonaws.com');*/
     res.redirect('/dashboard/'+ req.body.email);
 });
 
 app.get('/dashboard/:email', csrfProtection, function (req, res) {
+    console.log('Cookies: ', req.cookies);
     analytics.getGraphDetails(req,res);
     res.render(__dirname + '/views/dashboard.html');
 });
