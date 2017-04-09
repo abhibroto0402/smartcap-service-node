@@ -59,13 +59,18 @@ app.post('/login', function (req, res){
 });
 
 app.get('/dashboard/:email', csrfProtection, function (req, res) {
-    if(bcrypt.compareSync(req.params.email, req.cookies.passkey)) {
-        analytics.getGraphDetails(req,res);
-        res.render(__dirname + '/views/dashboard.html');
-    }
-    else {
+    try{
+        if(bcrypt.compareSync(req.params.email, req.cookies.passkey)) {
+            analytics.getGraphDetails(req,res);
+            res.render(__dirname + '/views/dashboard.html');
+        }
+        else {
+            res.redirect('/');
+        }
+    } catch (err){
         res.redirect('/');
     }
+
 
 });
 
