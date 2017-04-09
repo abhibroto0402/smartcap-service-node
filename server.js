@@ -18,6 +18,7 @@ var bcrypt = require('bcryptjs');
 var index = require('./routes/index');
 var dashboard = require ('./routes/dashboard');
 var cookieParser = require('cookie-parser');
+var hashCookies;
 
 //View Engine
 app.set('views',path.join(__dirname, 'views'));
@@ -53,13 +54,19 @@ function convertJSONForDB(reqBody) {
 app.post('/login', function (req, res){
     usr_cntrl.validateUser(req, res, user_db, bcrypt);
     req.session.user= req.body.email;
-    res.cookie('email', req.body.email, {httpOnly: true});
+    hashCookies = bcrypt.hashSync(req.body.email, bcrypt.genSaltSync(10));
+    res.cookie('passkey', hashCookies, {httpOnly: true});
 });
 
 app.get('/dashboard/:email', csrfProtection, function (req, res) {
-    console.log('Cookies: ', req.cookies.email);
-    analytics.getGraphDetails(req,res);
-    res.render(__dirname + '/views/dashboard.html');
+    if(bcrypt.compareSync(req.params.email, req.cookies.passkey)) {
+        analytics.getGraphDetails(req,res);
+        res.render(__dirname + '/views/dashboard.html');
+    }
+    else {
+        res.redirect('/');
+    }
+
 });
 
 app.post('/patient', function(req, res) {
