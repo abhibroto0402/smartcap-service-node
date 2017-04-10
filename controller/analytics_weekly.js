@@ -1,6 +1,7 @@
 var analytics_weekly = "mongodb://127.0.0.1/weekly";
 var analytics_biweekly = "mongodb://127.0.0.1/biweekly";
 var MongoClient = require('mongodb').MongoClient;
+const fs = require('fs');
 var fi1;
 var fi2;
 var getGraphDetails = function (req, res) {
@@ -47,10 +48,12 @@ var getGraphDetails = function (req, res) {
                 }
                 else {
                     fi2 = results[0].daily_comp;
-                   /* res.setHeader('weekly', fi1);
-                    res.setHeader('biweekly', fi2);
-                    res.writeHead(200, {'Content-Type': 'text/plain'});
-                    res.end('ok');*/
+                    var obj = {
+                        table: []
+                    };
+                    obj.table.push({weekly: 1, monthly:2});
+                    var json = JSON.stringify(obj);
+                    fs.writeFile('myjsonfile.json', json, 'utf8', callback);
                 }
             });
         }
