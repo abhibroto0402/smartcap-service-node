@@ -20,6 +20,7 @@
 <body>
 <p hidden id="week"></p>
 <p hidden id="month"></p>
+<p hidden id="comp"></p>
 <label class="logoutLblPos">
     <a id='a' href="/logout">Logout</a>
 </label>
@@ -99,37 +100,46 @@
 <div id="div3">
     <canvas id="compliance" width="200" height="200"></canvas>
     <script>
-        var chart = new CanvasJS.Chart("div3", {
-            title: {
-                text: "Overall Compliance Trend"
-            },
-            axisX: {
-                interval: 5,
-                title: 'Days'
-            },
-            axisY: {
-                interval: 20,
-                title: 'On-time (%)',
-            },
-            data: [{
-                type: "spline",
-                dataPoints: [
-                    {x: 0, y: 0, lineColor: "red"},
-                    {x: 10, y: 100},
-                    {x: 20, y: 100},
-                    {x: 30, y: 100, lineColor: "red"},
-                    {x: 38, y: 90, lineColor: "red"},
-                    {x: 40, y: 80, lineColor: "red"},
-                    {x: 52, y: 90, lineColor: "red"},
-                    {x: 64, y: 100},
-                    {x: 76, y: 100},
-                    {x: 88, y: 100},
-                    {x: 90, y: 100},
-                    {x: 100, y: 100},
-                ]
-            }]
+        var datapoints = new Array();
+        $.getJSON('../myjsonfile.json', function (data) {
+            $.each(data.table, function (i, f) {
+                $.each(f.compliance,function(i, k){
+                    var obj ={
+                        x:i,
+                        y:k
+                    }
+                    datapoints.push(obj);
+                });
+                $('#comp').html(datapoints);
+            });
         });
-        chart.render();
+        $(document).ready(function () {
+            var chart = new CanvasJS.Chart("div3", {
+                title: {
+                    text: "Overall Compliance Trend"
+                },
+                axisX: {
+                    interval: 5,
+                    title: 'Days'
+                },
+                axisY: {
+                    interval: 20,
+                    title: 'On-time (%)',
+                    stripLines: [
+                        {
+                            value: 100,
+                            color: "red"
+                        }
+                    ]
+                },
+                data: [{
+                    type: "spline",
+                    dataPoints: datapoints
+                }]
+            });
+            chart.render();
+        });
+
     </script>
 </div>
 <div id="div4">
