@@ -4,51 +4,98 @@
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../public/js/canvasjs.min.js"></script>
+    <script>
+        $.getJSON('../myjsonfile.json', function (data) {
+            $.each(data.table, function (i, f) {
+                var avg = Number(f.weekly);
+                $('#week').html(avg);
+                avg = Number(f.monthly);
+                $('#month').html(avg);
+            });
+        });
+    </script>
 </head>
 <body>
+<p hidden id="week"></p>
+<p hidden id="month"></p>
 <label class="logoutLblPos">
-    <a href="/logout">Logout</a>
+    <a id='a' href="/logout">Logout</a>
 </label>
 
 <div id="div1">
     <h1>Last Week Compliance</h1>
     <canvas id="weekly" width="200" height="200"></canvas>
     <script>
-        var pieData = [
-            {
-                value: 20,
-                color: "#FF8153"
-            },
-            {
-                value: 80,
-                color: "#3CB371"
-            }
-        ];
-        // Get the context of the canvas element we want to select
-        var countries = document.getElementById("weekly").getContext("2d");
-        new Chart(countries).Doughnut(pieData);
+        $(document).ready(function () {
+            var avg = document.getElementById("week").innerHTML;
+            var chart = new CanvasJS.Chart("div1", {
+                title: {
+                    text: "Avg. Last Week Compliance"
+                },
+                backgroundColor: "transparent",
+                animationEnabled: true,
+                theme: "theme2",
+                data: [
+                    {
+                        type: "doughnut",
+                        indexLabelFontFamily: "Garamond",
+                        indexLabelFontSize: 20,
+                        startAngle: 0,
+                        explodeOnClick: true,
+                        indexLabelFontColor: "dimgrey",
+                        indexLabelLineColor: "darkgrey",
+                        toolTipContent: "{y} %",
+                        dataPoints: [
+                            {y: avg, indexLabel: "Compliant " +avg + "%"},
+                            {y: 100-avg, indexLabel: "Non-Compliant " + (100-avg) + "%"}
+                        ]
+                    }
+                ]
+            });
+
+            chart.render();
+        });
     </script>
 </div>
+
 <div id="div2">
     <h1>Avg. Monthly Compliance</h1>
     <canvas id="monthly" width="200" height="200"></canvas>
     <script>
-        var pieData = [
-            {
-                value: 5,
-                color: "#DC143C"
-            },
-            {
-                value: 90,
-                color: "#3CB371"
-            }
-        ];
-        // Get the context of the canvas element we want to select
-        var countries = document.getElementById("monthly").getContext("2d");
-        new Chart(countries).Doughnut(pieData);
+        $(document).ready(function () {
+            var avg = document.getElementById("month").innerHTML;
+            var chart = new CanvasJS.Chart("div2", {
+                title: {
+                    text: "Avg. Last Week Compliance"
+                },
+                backgroundColor: "transparent",
+                animationEnabled: true,
+                theme: "theme2",
+                data: [
+                    {
+                        type: "doughnut",
+                        indexLabelFontFamily: "Garamond",
+                        indexLabelFontSize: 20,
+                        startAngle: 0,
+                        explodeOnClick: true,
+                        indexLabelFontColor: "dimgrey",
+                        indexLabelLineColor: "darkgrey",
+                        toolTipContent: "{y} %",
+                        dataPoints: [
+                            {y: avg, indexLabel: "Compliant " +avg + "%"},
+                            {y: 100-avg, indexLabel: "Non-Compliant " + (100-avg) + "%"}
+                        ]
+                    }
+                ]
+            });
+
+            chart.render();
+        });
     </script>
 </div>
+
 <div id="div3">
     <canvas id="compliance" width="200" height="200"></canvas>
     <script>
@@ -65,7 +112,7 @@
                 title: 'On-time (%)',
             },
             data: [{
-                type: "line",
+                type: "spline",
                 dataPoints: [
                     {x: 0, y: 0, lineColor: "red"},
                     {x: 10, y: 100},

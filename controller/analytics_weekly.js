@@ -62,6 +62,8 @@ var getGraphDetails = function (req, res) {
                     var obj = {
                         table: []
                     };
+                    weekly_avg = Math.round(Number(weekly_avg));
+                    mothly_avg = Math.round(Number(mothly_avg));
                     obj.table.push({weekly: weekly_avg, monthly:mothly_avg});
                     var json = JSON.stringify(obj);
                     fs.writeFile('myjsonfile.json', json, 'utf8');
