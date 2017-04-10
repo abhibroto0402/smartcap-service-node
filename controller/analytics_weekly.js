@@ -4,6 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 const fs = require('fs');
 var fi1;
 var fi2;
+var weekly_avg, mothly_avg;
 var getGraphDetails = function (req, res) {
     var email = "{\"email\":\"" + req.params.email + "\"}";
     var email_json = JSON.parse(email);
@@ -24,6 +25,11 @@ var getGraphDetails = function (req, res) {
                 }
                 else {
                     fi1 = results[0].daily_comp;
+                    var sum=0;
+                    for(var i=0; i<fi1.length; i++){
+                        sum = sum + fi1[i];
+                    }
+                    weekly_avg = sum / fi1.length;
                 }
             });
         }
@@ -48,10 +54,15 @@ var getGraphDetails = function (req, res) {
                 }
                 else {
                     fi2 = results[0].daily_comp;
+                    var sum=0;
+                    for(var i=0; i<fi2.length; i++){
+                        sum = sum + fi2[i];
+                    }
+                    mothly_avg = sum / fi2.length;
                     var obj = {
                         table: []
                     };
-                    obj.table.push({weekly: fi1, monthly:fi2});
+                    obj.table.push({weekly: weekly_avg, monthly:mothly_avg});
                     var json = JSON.stringify(obj);
                     fs.writeFile('myjsonfile.json', json, 'utf8');
                 }
