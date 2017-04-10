@@ -99,7 +99,7 @@
 <div id="div3">
     <canvas id="compliance" width="200" height="200"></canvas>
     <script>
-        var datapoints = new Array();
+        /*var datapoints = new Array();
         $.getJSON('../myjsonfile.json', function (data) {
             $.each(data.table, function (i, f) {
                 $.each(f.compliance,function(i, k){
@@ -111,7 +111,7 @@
                 });
             });
         });
-        $(document).ready(function () {
+        $(document).ready(function () {*/
             var chart = new CanvasJS.Chart("div3", {
                 title: {
                     text: "Overall Compliance Trend"
@@ -132,12 +132,28 @@
                 },
                 data: [{
                     type: "spline",
-                    dataPoints: datapoints
+                    dataPoints: [
+                        { x: 10, y: 90 },
+                        { x: 20, y: 100 },
+                        { x: 30, y: 80},
+                        { x: 40, y: 90 },
+                        { x: 50, y: 100 },
+                        { x: 60, y: 80 },
+                        { x: 70, y: 100 },
+                        { x: 80, y: 100 },
+                        { x: 90, y: 100 },
+                        { x: 100, y: 100 },
+                        { x: 110, y: 90 },
+                        { x: 120, y: 100 },
+                        { x: 130, y: 100 },
+                        { x: 140, y: 100 },
+                        { x: 150, y: 100 },
+
+                    ]
                 }]
             });
             chart.render();
-        });
-
+        //});
     </script>
 </div>
 <div id="div4">
