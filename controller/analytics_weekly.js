@@ -51,9 +51,9 @@ var getGraphDetails = function (req, res) {
                     var obj = {
                         table: []
                     };
-                    obj.table.push({weekly: 1, monthly:2});
+                    obj.table.push({weekly: fi1, monthly:fi2});
                     var json = JSON.stringify(obj);
-                    fs.writeFile('myjsonfile.json', json, 'utf8', callback);
+                    fs.writeFile('myjsonfile.json', json, 'utf8');
                 }
             });
         }
